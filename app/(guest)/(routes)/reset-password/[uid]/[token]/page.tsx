@@ -6,7 +6,15 @@ import { Eye, EyeClosed } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-const ResetPassword = ({ params } : { params: { uid: string, token: string } }) => {
+
+type Props = {
+  params: {
+    uid: string;
+    token: string;
+  };
+};
+
+const ResetPasswordPage = ({ params } : Props) => {
   const router = useRouter();
   const [ newPassword, setNewPassword ] = useState("");
   const [ confirmPassword, setConfirmPassword ] = useState("");
@@ -75,4 +83,4 @@ const ResetPassword = ({ params } : { params: { uid: string, token: string } }) 
   )
 }
 
-export default ResetPassword
+export default ResetPasswordPage
