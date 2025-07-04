@@ -1,0 +1,97 @@
+[
+    {
+        "id": 1,
+        "question": "What is Kenautos?",
+        "answer": "Kenautos is a car marketplace that connects car buyers, sellers, and spare parts dealers. Whether you're an individual or a dealership, Kenautos makes it easy to list, discover, and manage vehicle listings."
+    },
+    {
+        "id": 2,
+        "question": "Who can sell on Kenautos?",
+        "answer": "Both individuals and licensed car dealers can sell cars or spare parts on Kenautos. Sellers must register and verify their account before listing any item."
+    },
+    {
+        "id": 3,
+        "question": "Is it free to list a car on Kenautos?",
+        "answer": "Yes, you can list one car for free. After that, you will need to subscribe to a package to continue uploading more listings."
+    },
+    {
+        "id": 4,
+        "question": "What subscription packages do you offer?",
+        "answer": "Kenautos offers different subscription plans tailored for both individuals and dealers. Each plan includes a specific number of car uploads, listing duration, and optional visibility boosts or featured listings."
+    },
+    {
+        "id": 5,
+        "question": "How do I subscribe to a plan?",
+        "answer": "Log in to your Kenautos account, go to your dashboard, and select a subscription plan. Payments can be made via M-Pesa, credit/debit card, or other available mobile payment options."
+    },
+    {
+        "id": 6,
+        "question": "Can admins offer free uploads for a limited time?",
+        "answer": "Yes, Kenautos admins may enable free uploads during special promotional periods such as weekends or holidays. Keep an eye on announcements and your dashboard for such offers."
+    },
+    {
+        "id": 7,
+        "question": "Can Kenautos help me sell my car on my behalf?",
+        "answer": "Yes! If you don’t want to list your car yourself, we offer a managed selling service. Our team can handle everything for you — from creating a professional listing, handling inquiries, to connecting with serious buyers. To get started, simply contact us through WhatsApp or the contact page, and we’ll guide you through the process."
+    },
+    {
+        "id": 8,
+        "question": "Do you offer car hire services?",
+        "answer": "Yes, Kenautos offers premium car hire services strictly for luxury and chauffeured vehicles. Our services cater to weddings, hotel transfers, corporate transport, and special events. All bookings are professionally managed by our internal team to ensure quality and reliability."
+    },
+    {
+        "id": 9,
+        "question": "Can I sell spare parts on Kenautos?",
+        "answer": "Yes. Spare parts dealers can list their products in the Spare Parts section. This is ideal for both new and used parts."
+    },
+    {
+        "id": 10,
+        "question": "How do buyers contact sellers?",
+        "answer": "Buyers can message sellers directly through the platform once they view a listing. Verified contact methods such as phone or email may also be provided for faster communication."
+    },
+    {
+        "id": 11,
+        "question": "Are the cars and sellers verified by Kenautos?",
+        "answer": "Kenautos is an open marketplace, and while we do our best to filter out suspicious activity, we do not guarantee the authenticity of every listing. We strongly advise buyers to take necessary precautions such as meeting in safe public places, verifying ownership documents, and involving a trusted mechanic before making any payments."
+    },
+    {
+        "id": 12,
+        "question": "What safety tips should I follow when buying a car?",
+        "answer": "Always meet sellers in safe public locations, inspect the car with a mechanic, and verify ownership documents (logbook, ID, insurance). Never send money before confirming everything. If in doubt, contact the Kenautos team for guidance."
+    },
+    {
+        "id": 13,
+        "question": "How long does my car remain listed?",
+        "answer": "It depends on your subscription. Free listings have a shorter duration, while paid subscriptions offer extended durations such as 30 to 90 days or more."
+    },
+    {
+        "id": 14,
+        "question": "How do I boost the visibility of my car listing?",
+        "answer": "You can boost a listing by upgrading to a featured plan, promoting it on our homepage, or enabling social media promotion through our marketing team."
+    },
+    {
+        "id": 15,
+        "question": "Can I renew my subscription or listing?",
+        "answer": "Yes. When your subscription or listing is about to expire, you’ll receive a reminder to renew. You can also renew manually from your dashboard."
+    },
+    {
+        "id": 16,
+        "question": "What should I do if I sell my car elsewhere?",
+        "answer": "Please mark the listing as Sold in your dashboard to prevent unnecessary inquiries and help keep the platform up-to-date."
+    },
+    {
+        "id": 17,
+        "question": "What is the 'Find me a Car' service and how much does it cost?",
+        "answer": "This service is designed to help individuals who are unsure of what car to buy or are too busy to search. Our team helps you find the best options based on your budget, preferences, and location. We charge a one-time fee of KES 2,000 to connect you with car options that match your needs."
+    },
+    {
+        "id": 18,
+        "question": "Can you help me verify the car's condition?",
+        "answer": "Yes, we can connect you with a trusted mechanic to inspect the car before you commit. Please note that the mechanic's inspection fee is separate and not included in the KES 2,000 service charge."
+    },
+    {
+        "id": 19,
+        "question": "Need Help?",
+        "answer": "You can reach our support team via email at support@kenautos.com, WhatsApp, or Live Chat available on our website."
+    }
+]
