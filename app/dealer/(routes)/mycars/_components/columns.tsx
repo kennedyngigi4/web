@@ -1,17 +1,15 @@
 "use client"
 
-import MoreDropdown from "@/app/dealer/_components/more_dropdown";
 import DeleteModal from "@/components/modals/delete_modal";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import DealerApiService from "@/lib/dealer_apiservice";
 import { VehicleModel } from "@/lib/models";
 import { ColumnDef } from "@tanstack/react-table"
-import { Check, Ellipsis, Info, MoveDown, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
+const { data: session } = useSession();
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -60,8 +58,9 @@ export const columns: ColumnDef<VehicleModel>[] = [
         accessorKey: "",
         header: "Stats",
         cell: ({row}) => {
+            const clicks = row?.original?.clicks;
             return(
-                <p className="text-xs">Clicks</p>
+                <p className="text-xs">{clicks} Clicks</p>
             );
         }
     },
@@ -70,7 +69,6 @@ export const columns: ColumnDef<VehicleModel>[] = [
         accessorKey: "amount",
         header: "Actions",
         cell: ({row}) => {
-            const id = row?.original?.listing_id;
             const status = row?.original?.status;
             const vehicle_type = row?.original?.vehicle_type;
             const listing_id = row?.original?.listing_id;
@@ -83,7 +81,7 @@ export const columns: ColumnDef<VehicleModel>[] = [
                 month: "short",
                 day: "numeric"
             });
-            const { data:session } = useSession();
+            
 
             const handleDelete = async() => {
                 if (!session?.accessToken) {
@@ -114,17 +112,18 @@ export const columns: ColumnDef<VehicleModel>[] = [
                         </Link>
 
                         <DeleteModal
-                            children={<Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button>}
                             title={`Delete`}
                             product={`${year_of_make} ${make} ${model}`}
                             description='Are you sure you want to delete this vehicle listing? This action cannot be undone.'
                             onConfirm={handleDelete}
-                        />
+                        >
+                            <Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button>
+                        </DeleteModal>
                     </div>
 
 
                 </div>
-                // <MoreDropdown listingId={id} />
+                
             );
         }
     },

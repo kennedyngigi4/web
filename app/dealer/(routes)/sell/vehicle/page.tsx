@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { vehicleUpload } from '@/lib/actions';
-import { useRouter, redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import DealerApiService from '@/lib/dealer_apiservice';
 import { cn } from '@/lib/utils';
@@ -280,7 +280,7 @@ const SellCarPage = () => {
                             
                             {previewUrls.map((src, index) => (
                                 <div key={index} className="ml-3 mb-3 relative">
-                                    <img src={src} alt="Preview" className="md:w-30 md:h-30 w-60 h-60 object-cover rounded-md" />
+                                    <Image src={src} alt="Preview" className="md:w-30 md:h-30 w-60 h-60 object-cover rounded-md" />
                                     <button
                                         onClick={() => handleRemoveImage(index)}
                                         className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 cursor-pointer"

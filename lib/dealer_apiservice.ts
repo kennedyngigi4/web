@@ -70,7 +70,7 @@ const DealerApiService = {
             const data = res.json();
             return data;
         } catch(e){
-            return { "success": false, "message": "An error occured"}
+            return { "success": false, "message": "An error occured "+e }
         }
     }
 }

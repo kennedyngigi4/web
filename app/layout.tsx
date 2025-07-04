@@ -4,7 +4,6 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "./(guest)/_components/theme-provider";
 import { SessionProvider } from "next-auth/react";
-import { auth } from "@/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

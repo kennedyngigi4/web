@@ -3,12 +3,10 @@
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { ArrowDown } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { VehicleModel } from '@/lib/models';
-import { useSession } from 'next-auth/react';
-import { toast } from 'sonner';
+
 
 interface ViewingModalProps {
     vehicle: VehicleModel;
@@ -26,7 +24,8 @@ const ViewingModal = ({ vehicle }: ViewingModalProps) => {
         const formData = new FormData()
         formData.append("name", name);
         formData.append("listing", id);
-
+        formData.append("phone", phone);
+        formData.append("date_time", dateTime);
         
 
     }

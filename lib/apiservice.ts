@@ -1,6 +1,5 @@
 "use client";
 
-import { VehicleModel } from "./models";
 
 const ApiServices = {
     post: async function(url: string, data: any): Promise<any>{

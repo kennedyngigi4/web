@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Form, FormField, FormItem, FormControl, FormMessage, FormDescription, FormLabel } from '@/components/ui/form';
+import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -19,6 +19,7 @@ import { ArrowLeft, ArrowRightIcon, Bike, Car, Trash2, Truck, UploadCloud } from
 import { Label } from '@/components/ui/label';
 import ApiServices from '@/lib/apiservice';
 import DealerApiService from '@/lib/dealer_apiservice';
+import Image from 'next/image';
 
 const sparesSchema = z.object({
     title: z.string().min(1, { message: "Title is required." }),
@@ -160,8 +161,17 @@ const SpareParts = () => {
         }
 
 
-        const resp = await DealerApiService.post("dealers/spare_upload/", session?.accessToken, formData);
-        console.log(resp);
+        const res = await DealerApiService.post("dealers/spare_upload/", session?.accessToken, formData);
+        if(res.success){
+            setLoading(false);
+            toast.success(res.message, { position: "top-center" });
+            
+            router.push("/dealer/spares");
+            
+        } else {
+            setLoading(false);
+            toast.error(res.message, { position: "top-center" });
+        }
 
     }
 
@@ -198,7 +208,7 @@ const SpareParts = () => {
 
                             {previewUrls.map((src, index) => (
                                 <div key={index} className="ml-3 mb-3 relative">
-                                    <img src={src} alt="Preview" className="md:w-30 md:h-30 w-60 h-60 object-cover rounded-md" />
+                                    <Image src={src} alt="Preview" className="md:w-30 md:h-30 w-60 h-60 object-cover rounded-md" />
                                     <button
                                         onClick={() => handleRemoveImage(index)}
                                         className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 cursor-pointer"

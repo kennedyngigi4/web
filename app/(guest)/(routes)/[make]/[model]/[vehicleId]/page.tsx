@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import VehiclePageClient from './pageClient';
 import { fetchVehicle } from '@/lib/api';
-import { VehicleModel } from '@/lib/models';
 import { Metadata } from "next";
 import LoadingModal from '@/components/modals/loading_modal';
 
@@ -54,7 +53,7 @@ export default async function VehicleIdPage({ params }: VehicleIdPageProps) {
         <Suspense fallback={<LoadingModal />}>
             <VehiclePageClient
                 vehicleData={vehicleData}
-                params={params}
+                
             />
         </Suspense>
     );

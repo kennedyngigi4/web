@@ -12,7 +12,6 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import { Eye, EyeClosed } from 'lucide-react';
 import { loginUser } from '@/lib/actions';
-import { signIn } from "@/auth"
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
@@ -24,7 +23,7 @@ const formSchema = z.object({
 })
 
 const SignInPage = () => {
-  const { data:session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   const [ passwordView, setPasswordView ] = useState(false);
@@ -55,7 +54,7 @@ const SignInPage = () => {
     if (status === "authenticated"){
       router.push("/dealer");
     }
-  }, [status]);
+  }, [status, router]);
 
 
   return (

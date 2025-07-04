@@ -4,9 +4,8 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../(guest)/_components/navbar'
 import Footer from '../(guest)/_components/footer'
 import { useSession } from 'next-auth/react'
-import { useRouter, redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import SidebarItems from '../(guest)/_components/sidebar_items'
 import Link from 'next/link'
 
 

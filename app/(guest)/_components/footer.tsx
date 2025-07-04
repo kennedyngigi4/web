@@ -1,7 +1,6 @@
 "use client"
 
 import React from 'react';
-import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { FaEnvelope, FaFacebook, FaInstagram, FaPhone, FaQuestion, FaTiktok, FaWhatsapp } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';

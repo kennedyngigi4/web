@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React from 'react';
 import NavItem from './navitem';
-import { ChevronDown, MenuIcon } from "lucide-react";
 import { useSession, signOut } from 'next-auth/react';
 import {
   DropdownMenu,
@@ -54,13 +53,12 @@ const guestRoutes = [
 const Navbar = () => {
   const routes = guestRoutes;
   const session = useSession();
-  const router = useRouter();
 
   const logOut  = async() => {
     await signOut({
       callbackUrl: '/signin',
     });
-    // router.push("/signin");
+    
   }
 
   return (

@@ -17,8 +17,7 @@ interface DashboardVehicleListProps {
 }
 
 const DashboardVehicleList = ({ vehicle } : DashboardVehicleListProps) => {
-    const {data:session, status} = useSession();
-    const router = useRouter();
+    const {data:session} = useSession();
     const formattedPrice = parseInt(vehicle.price).toLocaleString();
     const newPrice = parseInt(vehicle.price_drop).toLocaleString();
     const formattedExpires = new Date(vehicle.expires_at).toLocaleDateString("en-us", {
@@ -90,12 +89,11 @@ const DashboardVehicleList = ({ vehicle } : DashboardVehicleListProps) => {
                     </Link>
                     
                     <DeleteModal 
-                        children={<Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button>} 
                         title={`Delete`} 
                         product={`${vehicle.year_of_make} ${vehicle.make} ${vehicle.model}`}
                         description='Are you sure you want to delete this vehicle listing? This action cannot be undone.' 
                         onConfirm={handleDelete}
-                    />
+                      ><Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button></DeleteModal>
                 </div>
                 
                 

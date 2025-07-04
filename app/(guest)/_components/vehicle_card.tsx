@@ -2,10 +2,10 @@
 
 import { VehicleModel } from '@/lib/models';
 import React from 'react';
-import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowBigDown, ArrowDown } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 
 interface VehicleCardProps{
     vehicle: VehicleModel

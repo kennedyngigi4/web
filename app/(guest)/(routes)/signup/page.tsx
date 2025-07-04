@@ -12,7 +12,7 @@ import Link from 'next/link';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { userRegistration } from "@/lib/actions";
-import { Eye, EyeClosed, EyeOff } from 'lucide-react';
+import { Eye, EyeClosed } from 'lucide-react';
 import { toast } from "sonner";
 import { useRouter } from 'next/navigation';
 
@@ -27,7 +27,6 @@ const formSchema = z.object({
 })
 
 const SignUp = () => {
-  const router = useRouter();
   const [passwordView, setPasswordView] = useState(false);
 
 

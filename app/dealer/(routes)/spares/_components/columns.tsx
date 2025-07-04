@@ -4,7 +4,6 @@ import DeleteModal from "@/components/modals/delete_modal";
 import { Button } from "@/components/ui/button";
 import { SparePart } from "@/lib/models";
 import { ColumnDef } from "@tanstack/react-table"
-import { Check, Ellipsis, Info, MoveDown, Trash2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -20,8 +19,6 @@ export const columns: ColumnDef<SparePart>[] = [
         accessorKey: "title",
         cell: ({ row }) => {
             const title = row?.original?.title;
-            const make = row?.original?.make;
-            const model = row?.original?.model;
             const image = row?.original.images[0].image;
 
             return (
@@ -93,12 +90,11 @@ export const columns: ColumnDef<SparePart>[] = [
                             <Button size="sm" variant="outline" className="border-green-500 hover:bg-green-500 hover:text-white cursor-pointer text-green-500">Edit</Button>
                         </Link>
                         <DeleteModal 
-                            children={<Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button>}
                             title={`Delete`}
                             product={`${title}`}
                             description='Are you sure you want to delete this spare part from your listing? This action cannot be undone.'
                             onConfirm={handleDelete}
-                        />
+                        ><Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button></DeleteModal>
                     </div>
                 </div>
             );

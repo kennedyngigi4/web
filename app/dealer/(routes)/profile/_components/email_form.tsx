@@ -5,11 +5,12 @@ import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from "zod";
 import { useForm } from 'react-hook-form';
-import { Form, FormField, FormItem, FormDescription, FormMessage, FormControl, FormLabel } from '@/components/ui/form';
+import { Form, FormField, FormItem, FormMessage, FormControl, FormLabel } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { useSession } from 'next-auth/react';
+import DealerApiService from '@/lib/dealer_apiservice';
 
 
 interface EmailFormProps {
@@ -22,7 +23,7 @@ const formSchema = z.object({
 
 
 const EmailForm = ({ initialData  }: EmailFormProps) => {
-    const { data:session, status } = useSession();
+    const { data:session } = useSession();
     const [ isEditing, setIsEditing ] = useState(false);
 
     const toggleEdit = () => setIsEditing((current) => !current);
@@ -41,10 +42,29 @@ const EmailForm = ({ initialData  }: EmailFormProps) => {
         if(initialData){
             form.reset({ email: initialData })
         }
-    }, [initialData]);
+    }, [initialData, form]);
 
     const handleSubmit = async(values: z.infer<typeof formSchema>) => {
-        console.log(values);
+        try {
+
+            if (!session?.accessToken) {
+                throw new Error("You must be logged in.");
+            }
+
+            const formData = new FormData();
+            formData.append("email", values.email);
+
+            const res = await DealerApiService.patch(`account/dealers/business_update/`, session?.accessToken, formData);
+            if (res.ok) {
+                toast.success("Update successful!");
+                window.location.reload();
+            } else {
+                toast.error("Something went wrong.");
+                window.location.reload();
+            }
+        } catch (e) {
+            toast.error("An error occurred " + e);
+        }
     }
 
     return (

@@ -40,7 +40,7 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
             setMakes(data);
         }   
         loadMakes();
-    },[]);
+    }, [vehicle_type]);
 
 
     useEffect(() => {

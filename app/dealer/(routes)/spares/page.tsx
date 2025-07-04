@@ -7,7 +7,7 @@ import DealerApiService from '@/lib/dealer_apiservice';
 import { useSession } from 'next-auth/react';
 
 const SpareParts = () => {
-  const { data:session, status } = useSession();
+  const { data:session } = useSession();
   const [ spares, setSpares ] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,6 @@ const SpareParts = () => {
       }
 
       const data = await DealerApiService.get(`dealers/my_spares/`, session?.accessToken);
-      console.log(data);
       setSpares(data);
     }
     loadSpares();

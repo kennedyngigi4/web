@@ -10,10 +10,14 @@ import React, { useEffect, useState } from 'react'
 const PublishDraft = () => {
     const params = useParams();
 
-    const { data:session, status } = useSession();
+    const { data:session } = useSession();
     const [ packages, setPackages ] = useState([]);
     useEffect(() => {
         const fetchPackages = async() => {
+            if(!session?.accessToken){
+                throw new Error("You must be logged in.");
+            }
+
             const data = await DealerApiService.get("dealers/packages", session?.accessToken);
             
             setPackages(data);

@@ -14,7 +14,6 @@ interface NavItemProps{
 const NavItem = ({ label, href} : NavItemProps) => {
 
     const pathname = usePathname();
-    const router = useRouter();
 
     const isActive = 
         ( pathname === "/" && href === "/" ) ||

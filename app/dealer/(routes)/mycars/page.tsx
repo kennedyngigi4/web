@@ -3,13 +3,11 @@
 import DealerApiService from '@/lib/dealer_apiservice';
 import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react';
-import DealerCarCard from './_components/car_card';
-import { VehicleModel } from '@/lib/models';
 import { DataTable } from './_components/data-table';
 import { columns } from './_components/columns';
 
 const MyCars = () => {
-  const { data:session, status} = useSession();
+  const { data:session } = useSession();
   const [ vehicles, setVehicles ] = useState([]);
 
   

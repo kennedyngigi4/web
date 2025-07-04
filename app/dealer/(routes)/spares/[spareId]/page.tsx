@@ -35,7 +35,7 @@ const sparesSchema = z.object({
 
 const SpareDetailsPage = () => {
     const params = useParams();
-    const { data:session, status} = useSession(); 
+    const { data:session } = useSession(); 
     const router = useRouter();
     const [ spareData, setSpareData ] = useState< SparePart | any>({});
     const [ makes, setMakes ] = useState([]);
@@ -98,7 +98,7 @@ const SpareDetailsPage = () => {
         }
     });
 
-    const { isValid, isSubmitting } = form.formState;
+    // const { isValid, isSubmitting } = form.formState;
 
     useEffect(() => {
         if(spareData){
@@ -161,7 +161,7 @@ const SpareDetailsPage = () => {
     }
 
     const handleImgDelete = async(id: string) => {
-
+        console.log(id);
     }
 
   return (
@@ -207,12 +207,13 @@ const SpareDetailsPage = () => {
                     
 
                     <DeleteModal
-                        children={<Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button>}
                         title={`Delete`}
                         product={`${spareData?.title}`}
                         description='Are you sure you want to delete this spare part listing? This action cannot be undone.'
                         onConfirm={handleDelete}
-                    />
+                    >
+                        <Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button>
+                    </DeleteModal>
                 </div>
             </div>
 

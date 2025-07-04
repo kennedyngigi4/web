@@ -1,6 +1,5 @@
 "use client";
 
-import Breadcrumbs from '@/app/(guest)/_components/breadcrumb';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { SparePart } from '@/lib/models';
 import React, { useState } from 'react';
@@ -15,13 +14,11 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from 
 
 type SpareClientProps = {
     spare: SparePart;
-    params: any;
 }
 
-const SpareClientId = ({ spare, params }: SpareClientProps) => {
+const SpareClientId = ({ spare }: SpareClientProps) => {
     const [ showTips, setShowTips] = useState(false);
-    const decodedMake =   decodeURIComponent(spare.make);
-    const decodedModel = decodeURIComponent(spare.model);
+    
 
     const spareURL = `https://kenautos.co.ke/spare-parts/${encodeURIComponent(spare.id)}`;
     const spareText = encodeURIComponent(`Check out this ${spare?.title} for ${spare?.make} ${spare?.model} for sale on Kenautos Hub`)

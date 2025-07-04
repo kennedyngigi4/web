@@ -8,15 +8,20 @@ import PackageCard from '../../_components/package_card';
 import { PackageItem } from '@/lib/models';
 
 const Packages = () => {
-  const { data:session, status } = useSession();
+  const { data:session } = useSession();
   const [ packages, setPackages ] = useState([]);
 
  
 
   useEffect(() => {
     const fetchPackages = async() => {
+
+      if(!session?.accessToken){
+        throw new Error("You must be logged in.");
+      }
+
       const data = await DealerApiService.get("dealers/packages", session?.accessToken);
-      console.log(data);
+      
       setPackages(data);
     }
     fetchPackages();

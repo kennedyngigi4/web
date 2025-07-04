@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { FaWhatsapp } from 'react-icons/fa';
 import ApiServices from '@/lib/apiservice';
 import { toast } from 'sonner';
+import Image from 'next/image';
 
 
 const bookingSchema = z.object({
@@ -57,7 +58,7 @@ const LuxuryCarHirePage = () => {
         toast.error(resp.error, { position: "top-center" });
       }
     } catch (e) {
-      toast.error("An error occured!", { position: "top-center" });
+      toast.error("An error occured, " +e, { position: "top-center" });
     }
 
   }
@@ -68,7 +69,7 @@ const LuxuryCarHirePage = () => {
       <section className="text-center space-y-4">
         <h1 className="text-3xl font-bold text-orange-400">Chauffeured & Luxury Car Hire Services</h1>
         <p className="text-lg text-gray-600">Experience class and comfort with our premium car hire services.</p>
-        <img src="/luxury-car-banner.jpg" alt="Luxury Car Hire" className="w-full rounded-2xl shadow-xl" />
+        {/* <img src="/luxury-car-banner.jpg" alt="Luxury Car Hire" className="w-full rounded-2xl shadow-xl" /> */}
       </section>
 
       {/* Service Categories */}
@@ -104,7 +105,7 @@ const LuxuryCarHirePage = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
           {['mercedes_benz.png', 'range_rover.png', 'land_cruiser.png', 'bmw.png', 'van.png'].map((img, idx) => (
             <div key={idx} className="rounded-xl overflow-hidden shadow-md">
-              <img src={`/images/hire/${img}`} alt="Luxury car" className="w-full h-60 object-cover" />
+              <Image src={`/images/hire/${img}`} alt="Luxury car" className="w-full h-60 object-cover" />
               <p className="text-center uppercase py-2 text-sm font-semibold text-gray-600">
                 {img.replace('.png', '').replace("_"," ").replace(/([a-z])([A-Z])/g, '$1 $2')}
               </p>

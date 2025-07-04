@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Slash } from 'lucide-react';
 import Link from 'next/link';
 
@@ -13,11 +13,9 @@ interface BreadcrumbsProps {
     vehicletype?: any;
 }
 
-const Breadcrumbs = ({ make, model, vehicleId, vehicletype } : BreadcrumbsProps) => {
+const Breadcrumbs = ({ make, model, vehicleId } : BreadcrumbsProps) => {
 
-    const decodedMake = decodeURIComponent(make as string)
-    const decodedModel = decodeURIComponent(model as string);
-    const vehicle = vehicletype+"s"
+    
 
   return (
     <section className="py-3">

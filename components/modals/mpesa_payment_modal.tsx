@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
+import { Dialog, DialogContent } from '../ui/dialog';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
-import ApiServices from '@/lib/apiservice';
-import DealerApiService from '@/lib/dealer_apiservice';
 import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 import { PackageItem } from '@/lib/models';
@@ -23,7 +21,7 @@ interface MpesaPaymentModalProps {
 
 const MpesaPaymentModal = ({ open, onClose, subscription, vehicleid }: MpesaPaymentModalProps) => {
     const [phone, setPhone] = useState("254");
-    const { data:session, status} = useSession();
+    const { data:session } = useSession();
 
 
     const handlePhoneChange = async(e: React.ChangeEvent<HTMLInputElement>) => {

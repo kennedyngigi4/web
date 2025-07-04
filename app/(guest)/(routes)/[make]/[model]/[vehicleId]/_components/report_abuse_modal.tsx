@@ -3,12 +3,9 @@
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, FlagIcon } from 'lucide-react';
+import { FlagIcon } from 'lucide-react';
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 import { SparePart, VehicleModel } from '@/lib/models';
-import { useSession } from 'next-auth/react';
-import { toast } from 'sonner';
 import { Textarea } from '@/components/ui/textarea';
 
 interface ReportAbuseModalProps {

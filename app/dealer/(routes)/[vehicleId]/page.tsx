@@ -21,7 +21,6 @@ import DealerApiService from '@/lib/dealer_apiservice';
 import PriceUpdate from './_components/price_update';
 import SoldModal from '@/components/modals/sold_modal';
 import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from 'react-icons/fa6';
-import MpesaPaymentModal from '@/components/modals/mpesa_payment_modal';
 import DeleteModal from '@/components/modals/delete_modal';
 
 
@@ -43,7 +42,7 @@ const formSchema = z.object({
 
 const VehicleDetailsPage = () => {
     const params = useParams();
-    const {data:session, status} = useSession();
+    const {data:session} = useSession();
     const router = useRouter();
 
     const [ vehicleData, setVehicleData] = useState<VehicleModel | any>({});
@@ -292,12 +291,13 @@ const VehicleDetailsPage = () => {
                         </div>
                         
                         <DeleteModal
-                            children={<Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button>}
                             title={`Delete`}
                             product={`${vehicleData?.year_of_make} ${vehicleData.make} ${vehicleData.model}`}
                             description='Are you sure you want to delete this vehicle listing? This action cannot be undone.'
                             onConfirm={handleDelete}
-                        />
+                        >
+                            <Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button>
+                        </DeleteModal>
                     </div>
                 </div>
 
@@ -611,7 +611,7 @@ const VehicleDetailsPage = () => {
                             {newPreviewUrls.map((src, index) => (
                                 <div key={index} className="ml-3 mb-3 relative">
                                     
-                                    <img src={src} alt="Preview" className="md:w-30 md:h-22 w-60 h-60 object-cover rounded-md" />
+                                    <Image src={src} alt="Preview" className="md:w-30 md:h-22 w-60 h-60 object-cover rounded-md" />
                                     <button
                                         onClick={() => handleRemoveNewImage(index)}
                                         className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"

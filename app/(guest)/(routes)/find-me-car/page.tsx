@@ -53,7 +53,7 @@ const FindMeCar = () => {
         toast.error(resp.error, { position: "top-center" });
       }
     } catch(e){
-      toast.error("An error occured!", { position: "top-center" });
+      toast.error("An error occured! "+e, { position: "top-center" });
     }
   }
 
@@ -185,7 +185,7 @@ const FindMeCar = () => {
                       <Textarea 
                         rows={3} 
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-400 focus:ring-orange-400" 
-                        placeholder="Color, fuel type, etc.">
+                        placeholder="Color, fuel type, etc." {...field}>
                         
                       </Textarea>
                     </FormControl>

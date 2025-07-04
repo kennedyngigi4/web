@@ -52,7 +52,7 @@ const SpareId = async ({ params} : SpareIdProps) => {
     <Suspense fallback={<LoadingModal />}>
       <SpareClientId 
         spare={spare} 
-        params={params}
+        
       />
     </Suspense>
   )

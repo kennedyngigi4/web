@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { BadgeCheck } from 'lucide-react';
 import VehicleCard from '@/app/(guest)/_components/vehicle_card';
-import { FaEnvelope, FaLocationDot, FaLocationPin } from 'react-icons/fa6';
+import { FaEnvelope, FaLocationDot } from 'react-icons/fa6';
 import { FaFacebook, FaGlobe, FaInstagram, FaLinkedin, FaPhone, FaTiktok, FaTwitter, FaYoutube } from 'react-icons/fa';
 import Link from 'next/link';
 

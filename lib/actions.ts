@@ -2,8 +2,6 @@
 
 import { signIn, signOut } from "@/auth"
 import { auth } from "../auth"
-import { VehicleModel } from "./models";
-
 
 
 export const userRegistration = async(registrationData: any) => {
@@ -28,7 +26,7 @@ export const userRegistration = async(registrationData: any) => {
             return { "success": false, "message": "Something went wrong" }
         }
     } catch(e){
-        return { "success": false, "message": "Something went wrong" }
+        return { "success": false, "message": "Something went wrong "+e }
     }
 } 
 
@@ -48,7 +46,7 @@ export async function loginUser(email: string, password: string): Promise<any> {
         
 
     } catch(e){
-        return { error: "Something went wrong. Please try again." };
+        return { error: "Something went wrong. "+e };
     }
     
 }
@@ -84,7 +82,7 @@ export async function vehicleUpload(formData: any){
         
         
     } catch(e){
-        return { "success": false, "message": "Something went wrong" }
+        return { "success": false, "message": "Something went wrong "+e }
     }
 
 }

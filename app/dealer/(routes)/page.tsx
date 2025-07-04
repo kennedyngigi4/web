@@ -12,7 +12,6 @@ import TopServiceCards from '../_components/top_service_cards';
 
 const Dealer = () => {
   const {data:session, status} = useSession();
-  const router = useRouter();
   const [ vehicles, setVehicles ] = useState([]);
 
   if(status == "unauthenticated"){

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from "zod";
 import { useForm } from 'react-hook-form';
-import { Form, FormField, FormItem, FormDescription, FormMessage, FormControl, FormLabel } from '@/components/ui/form';
+import { Form, FormField, FormItem, FormMessage, FormControl, FormLabel } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
@@ -24,7 +24,7 @@ const formSchema = z.object({
 
 
 const BusinessLocationForm = ({ initialData, business_id }: BusinessLocationFormProps) => {
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     const [isEditing, setIsEditing] = useState(false);
 
     const toggleEdit = () => setIsEditing((current) => !current);
@@ -43,7 +43,7 @@ const BusinessLocationForm = ({ initialData, business_id }: BusinessLocationForm
         if (initialData) {
             form.reset({ address: initialData });
         }
-    }, [initialData]);
+    }, [initialData, form]);
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
@@ -64,7 +64,7 @@ const BusinessLocationForm = ({ initialData, business_id }: BusinessLocationForm
                 window.location.reload();
             }
         } catch (e) {
-            toast.error("An error occurred.");
+            toast.error("An error occurred " + e);
         }
     }
 

@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Eye, EyeClosed } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const ResetPassword = ({ params } : { params: { uid: string, token: string } }) => {
@@ -15,8 +15,10 @@ const ResetPassword = ({ params } : { params: { uid: string, token: string } }) 
   
 
   const handleSubmit = async(e: React.FormEvent) => {
+    console.log(params.uid);
     e.preventDefault();
     setLoading(true);
+    router.refresh();
   }
 
   return (

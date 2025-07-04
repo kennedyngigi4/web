@@ -19,9 +19,11 @@ const PackageCard = ({ item, vehicleId }: PackageCardProps) => {
     const onclick = async(item: PackageItem) => {
         setSelectedPackage(item);
         setShowMpesaDialog(true);
+        console.log(selectedPackage);
     }
 
     const handleMpesaModalClose = async() => {
+        console.log(selectedPackage);
         setShowMpesaDialog(false);
     }
 

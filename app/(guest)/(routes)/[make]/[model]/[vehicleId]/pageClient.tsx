@@ -1,19 +1,16 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
-import { useParams } from 'next/navigation';
+import React, { useState } from 'react';
+
 import Breadcrumbs from '@/app/(guest)/_components/breadcrumb';
-import ApiServices from '@/lib/apiservice';
-import LoadingModal from '@/components/modals/loading_modal';
 import {
     Carousel, CarouselContent, CarouselItem, CarouselNext,
     CarouselPrevious, } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { BadgeCheck, ChevronDown, ChevronUp, FlagIcon } from 'lucide-react';
-import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaTwitter, FaWhatsapp } from "react-icons/fa"
+import { BadgeCheck, ChevronDown, ChevronUp } from 'lucide-react';
+import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa"
 import { FaPhone } from 'react-icons/fa6';
 import ViewingModal from './_components/viewing_modal';
 import ReportAbuseModal from './_components/report_abuse_modal';
@@ -23,11 +20,11 @@ import { VehicleModel } from '@/lib/models';
 
 type VehiclePageClientProps = {
     vehicleData: VehicleModel;
-    params: any;
+    
 }
 
 
-const VehiclePageClient = ({ vehicleData, params }: VehiclePageClientProps) => {
+const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
     const decodedMake = decodeURIComponent(vehicleData?.make as string)
     const decodedModel = decodeURIComponent(vehicleData?.model as string)
     const [ showTips, setShowTips] = useState(false);
