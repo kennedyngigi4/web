@@ -6,7 +6,7 @@ import { auth } from "../auth"
 
 export const userRegistration = async(registrationData: any) => {
     try{
-        const url = `${process.env.NEXT_PUBLIC_APIURL}/account/register/`;
+        const url = `${process.env.APIURL}/account/register/`;
         console.log(url);
         const res = await fetch(url, {
             method: "POST",
@@ -67,7 +67,7 @@ export async function vehicleUpload(formData: any){
     const session = await auth();
 
     try{
-        const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/dealers/upload`, {
+        const res = await fetch(`${process.env.APIURL}/dealers/upload`, {
             method: "POST",
             headers: { 
                 "Authorization": `Token ${session?.accessToken}`,
