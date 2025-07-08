@@ -51,6 +51,8 @@ const SignUp = () => {
     }
 
     const res = await userRegistration(registrationData);
+    console.log(res);
+    console.log("test .....");
     if(res?.success){
       toast.success(res?.message, { position: 'top-center' });
       window.location.href = "/dealer";
