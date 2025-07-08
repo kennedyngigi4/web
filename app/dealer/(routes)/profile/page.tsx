@@ -101,7 +101,7 @@ const ProfilePage = () => {
       >
         {userData?.business?.banner && (
           <Image
-            src={`http://127.0.0.1:8000${userData.business.banner.startsWith('/') ? '' : '/'
+            src={`${process.env.NEXT_PUBLIC_BASEURL}${userData.business.banner.startsWith('/') ? '' : '/'
               }${userData.business.banner}`}
             alt="Business banner"
             fill

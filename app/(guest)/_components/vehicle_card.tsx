@@ -33,7 +33,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
                         />
                     ) : (
                         <Image
-                            src={`http:127.0.0.1:8000${vehicle?.images[0].image}`}
+                            src={`${process.env.NEXT_PUBLIC_BASEURL}${vehicle?.images[0].image}`}
                             alt={`${vehicle?.year_of_make} ${vehicle?.make} ${vehicle?.model} for sale at Kenautos Hub Nairobi, Kenya. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
                             fill
                             className="rounded-lg object-cover"

@@ -23,7 +23,7 @@ export const columns: ColumnDef<VehicleModel>[] = [
             const imageOne = row?.original?.images[0]?.image;
             return (
                 <div className="w-full rounded-lg h-35 relative overflow-hidden">
-                    <Image src={`http://127.0.0.1:8000${imageOne}`} alt="Vehicle" fill className="object-cover" />
+                    <Image src={`${process.env.NEXT_PUBLIC_BASEURL}${imageOne}`} alt="Vehicle" fill className="object-cover" />
                 </div>
             );
         }
