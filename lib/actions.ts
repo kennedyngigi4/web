@@ -6,13 +6,15 @@ import { auth } from "../auth"
 
 export const userRegistration = async(registrationData: any) => {
     try{
-        const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/account/register/`, {
+        const url = `${process.env.NEXT_PUBLIC_APIURL}/account/register/`;
+        console.log(url);
+        const res = await fetch(url, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(registrationData),
         });
         const user =  await res.json();
-        
+        console.log(user);
         if(user.success){
             
             const res = await signIn("credentials", { email: registrationData.email, password: registrationData.password, redirect: false });
