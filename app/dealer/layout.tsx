@@ -66,7 +66,7 @@ const DealerLayout = ({
 
   return (
     <section>
-      <Navbar />
+        <Navbar />
         <main className="md:px-[50px] px-[20px] grid grid-cols-1 lg:grid-cols-12 gap-5">
           <div className="lg:col-span-2 border-r-2 border-slate-100 py-4 max-lg:hidden">
             <div className="w-[100px] h-[100px] rounded-full bg-slate-100">
