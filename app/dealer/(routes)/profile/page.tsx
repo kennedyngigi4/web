@@ -41,7 +41,9 @@ const ProfilePage = () => {
           "Authorization": `Token ${session?.accessToken}`
         }
       });
+      
       const data = await res.json()
+      console.log(data);
       setUserData(data);
     }
     fetchProfile();
@@ -99,7 +101,7 @@ const ProfilePage = () => {
           !userData?.business?.banner && "bg-gray-100"
         )}
       >
-        <p className='py-5'>{userData.business.banner}</p>
+        <p className='py-5'>{userData?.business?.banner}</p>
         {userData?.business?.banner && (
           <Image
             src={`${process.env.NEXT_PUBLIC_BASEURL}${userData.business.banner.startsWith('/') ? '' : '/'
