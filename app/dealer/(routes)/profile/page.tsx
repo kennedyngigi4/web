@@ -101,7 +101,7 @@ const ProfilePage = () => {
           !userData?.business?.banner && "bg-gray-100"
         )}
       >
-        
+        <p>{process.env.NEXT_PUBLIC_IMGURL}{userData?.business?.banner}</p>
         {userData?.business?.banner && (
           <Image
             src={`${process.env.NEXT_PUBLIC_IMGURL}${userData.business.banner.startsWith('/') ? '' : '/'
