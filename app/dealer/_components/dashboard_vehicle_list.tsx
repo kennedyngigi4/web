@@ -45,7 +45,7 @@ const DashboardVehicleList = ({ vehicle } : DashboardVehicleListProps) => {
     <section className="grid grid-cols-1 lg:grid-cols-12 lg:gap-9 lg:space-y-4 bg-white p-3 mb-2">
         <div className="lg:col-span-2">
             <div className="w-full lg:h-30 h-45 relative overflow-hidden rounded">
-                <Image src={`${process.env.NEXT_PUBLIC_BASEURL}${vehicle.images[0].image}`} alt={`${vehicle.year_of_make} ${vehicle.make} ${vehicle.model}`} fill className="object-cover" sizes="(max-width: 640px) 100vw, 400px" />
+                <Image src={`${process.env.NEXT_PUBLIC_IMGURL}${vehicle.images[0].image}`} alt={`${vehicle.year_of_make} ${vehicle.make} ${vehicle.model}`} fill className="object-cover" sizes="(max-width: 640px) 100vw, 400px" />
             </div>
         </div>
         <div className="lg:col-span-5">

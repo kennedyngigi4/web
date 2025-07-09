@@ -27,7 +27,7 @@ const SpareCard = ({ spare }: SpareCardProps) => {
               />
             ) : (
               <Image
-                  src={`http:127.0.0.1:8000${spare?.images[0].image}`}
+                  src={`${process.env.NEXT_PUBLIC_IMGURL}${spare?.images[0].image}`}
                   alt={`${spare?.title} ${spare?.make} ${spare?.model} for sale at Kenautos Hub Nairobi, Kenya. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
                 fill
                 className="rounded-lg object-cover"

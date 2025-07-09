@@ -43,7 +43,7 @@ const ProfilePage = () => {
       });
       
       const data = await res.json()
-      console.log(data);
+      
       setUserData(data);
     }
     fetchProfile();
@@ -101,10 +101,10 @@ const ProfilePage = () => {
           !userData?.business?.banner && "bg-gray-100"
         )}
       >
-        <p className='py-5'>{userData?.business?.banner}</p>
+        
         {userData?.business?.banner && (
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASEURL}${userData.business.banner.startsWith('/') ? '' : '/'
+            src={`${process.env.NEXT_PUBLIC_IMGURL}${userData.business.banner.startsWith('/') ? '' : '/'
               }${userData.business.banner}`}
             alt="Business banner"
             fill
