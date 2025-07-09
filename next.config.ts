@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     }
   },
   images: {
+    domains: ['api.kenautos.co.ke'],
     remotePatterns: [
       {
         protocol: 'http',
