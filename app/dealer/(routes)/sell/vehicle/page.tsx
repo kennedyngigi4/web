@@ -205,6 +205,8 @@ const SellCarPage = () => {
         
 
         const res = await vehicleUpload(formData);
+
+        console.log(res);
         if(res.success){
             setLoading(false);
             setUploadedVehicleID(res.id);
