@@ -7,14 +7,14 @@ import { auth } from "../auth"
 export const userRegistration = async(registrationData: any) => {
     try{
         const url = `${process.env.APIURL}/account/register/`;
-        console.log(url);
+        
         const res = await fetch(url, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(registrationData),
         });
         const user =  await res.json();
-        console.log(user);
+        
         if(user.success){
             
             const res = await signIn("credentials", { email: registrationData.email, password: registrationData.password, redirect: false });
@@ -74,9 +74,9 @@ export async function vehicleUpload(formData: any){
             },
             body: formData
         });
-        console.log(res)
+        
         const data = await res.json();
-        console.log(data)
+        
         if(data.success){
             return { "success": true, "message": data.message, "id": data.listing_id };
         } else {

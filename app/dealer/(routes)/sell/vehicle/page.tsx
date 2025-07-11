@@ -56,6 +56,7 @@ const SellCarPage = () => {
     const [isReady, setIsReady] = useState(false);
     const [ showMpesaDialog, setShowMpesaDialog ] = useState(false);
     const [ uploadedVehicleID, setUploadedVehicleID] = useState("");
+    const [ imgErrorMessage, setImgErrorMessage] = useState<string>("");
 
     useEffect(() => {
         const checkEligibility = async() => {
@@ -104,9 +105,27 @@ const SellCarPage = () => {
         if(!files) return;
 
         const selectedFiles = Array.from(files);
+
+        const maxSizeInBytes = 2 * 1024 * 1024;
+        const validFiles: File[] = [];
+        const errors: string[] = [];
+
+        selectedFiles.forEach((img) => {
+            if(img.size >= maxSizeInBytes){
+                errors.push(`${img.name} is too large. Max size is 2MB.`);
+            } else {
+                validFiles.push(img);
+            }
+        });
+
+        if(errors.length > 0){
+            setImgErrorMessage(errors.join(" "));
+        } else {
+            setImgErrorMessage(""); 
+        }
         
         // Prevent duplication
-        const uniqueFiles = selectedFiles.filter((file) => !images.some((img) => img.name === file.name))
+        const uniqueFiles = validFiles.filter((file) => !images.some((img) => img.name === file.name))
         setImages((prev) => [...prev, ...uniqueFiles]);
 
         // preview Images
@@ -206,7 +225,7 @@ const SellCarPage = () => {
 
         const res = await vehicleUpload(formData);
 
-        console.log(res);
+        
         if(res.success){
             setLoading(false);
             setUploadedVehicleID(res.id);
@@ -291,8 +310,8 @@ const SellCarPage = () => {
                                     </button>
                                 </div>
                             ))}
-                            
                         </div>
+                        {imgErrorMessage && <p className="text-red-600 text-xs">{imgErrorMessage}</p>}
                         <div className="py-14">
                             <Label>Select vehicle type</Label>
                             <div className="flex gap-4 w-full pt-5">
