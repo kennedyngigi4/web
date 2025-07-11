@@ -74,8 +74,9 @@ export async function vehicleUpload(formData: any){
             },
             body: formData
         });
+        console.log(res)
         const data = await res.json();
-        
+        console.log(data)
         if(data.success){
             return { "success": true, "message": data.message, "id": data.listing_id };
         } else {
