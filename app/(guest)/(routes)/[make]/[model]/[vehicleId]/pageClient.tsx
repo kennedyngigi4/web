@@ -32,7 +32,7 @@ const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
 
 
 
-    const carURL = encodeURIComponent(`https://kenautos.co.ke/${encodeURIComponent(vehicleData?.make)}/${encodeURIComponent(vehicleData?.model)}/${vehicleData?.listing_id}`)
+    const carURL = encodeURIComponent(`https://kenautos.co.ke/${encodeURIComponent(vehicleData?.make)}/${encodeURIComponent(vehicleData?.model)}/${vehicleData?.slug}`)
     
     const carText = encodeURIComponent(`Check out this ${vehicleData?.year_of_make} ${vehicleData?.make} ${vehicleData?.model} for sale on Kenautos Hub`)
       
