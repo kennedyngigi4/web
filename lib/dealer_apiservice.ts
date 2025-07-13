@@ -72,6 +72,74 @@ const DealerApiService = {
         } catch(e){
             return { "success": false, "message": "An error occured "+e }
         }
+    },
+
+
+    images: async function(url: string, id: string, images: File[]): Promise<any>{
+        let uploadedImages = 0;
+        for(const image of images){
+            const formData = new FormData();
+            formData.append("listing", id);
+            formData.append("image", image);
+            
+
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/${url}`, {
+                    method: "POST",
+                    body: formData,
+                });
+                const data = await res.json();
+                
+
+                if (!res.ok) {
+                    throw new Error(data.message || "Image upload failed");
+                } else {
+                    uploadedImages += 1;
+                }
+
+                if(uploadedImages === images.length){
+                    return { "success": true, "message": "Upload successful" }
+                }
+
+            } catch (e) {
+                return { "success": false, "message": "An error occured " + e }
+            }
+        }
+    },
+
+
+    sparesimages: async function (url: string, id: string, images: File[]): Promise<any> {
+        let uploadedImages = 0;
+
+        for (const image of images) {
+            const formData = new FormData();
+            formData.append("spare_part", id);
+            formData.append("image", image);
+
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/${url}`, {
+                    method: "POST",
+                    body: formData,
+                });
+
+                console.log(res);
+                const data = await res.json();
+
+
+                if (!res.ok) {
+                    throw new Error(data.message || "Image upload failed");
+                } else {
+                    uploadedImages += 1;
+                }
+
+                if (uploadedImages === images.length) {
+                    return { "success": true, "message": "Upload successful" }
+                }
+
+            } catch (e) {
+                return { "success": false, "message": "An error occured " + e }
+            }
+        }
     }
 }
 

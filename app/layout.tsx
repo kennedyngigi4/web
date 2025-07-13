@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Kenautos Hub - Buy, Sell or Hire Luxury Cars in Kenya.",
   description: "Kenautos is Kenya's trusted online platform to buy, sell, or hire cars. Browse listings for new and used vehicles from individuals and dealers across the country.",
-  keywords: "buy cars in Kenya, sell cars in Kenya, hire cars in Kenya, used cars Kenya, car marketplace Kenya, online car sales Kenya, car dealers in Kenya, new cars Kenya, car listings Kenya, vehicle marketplace Kenya",
+  keywords: "Buy cars in Kenya, Sell cars in Kenya, Car marketplace Kenya, Car hire services Kenya, Spare parts Kenya, Car dealers in Kenya, Second-hand cars Kenya, Car listing platform Kenya, Kenya automotive marketplace, Where to buy cars in Kenya, How to sell a car online in Kenya, Affordable car hire Kenya, Genuine spare parts for sale Kenya, Online car sales platform Kenya, Used cars Nairobi, Car hire companies in Kenya, Best place to buy car parts Kenya, Trusted car brokers Kenya, List car for free Kenya, Car dealership platform Kenya, List cars for sale as dealer Kenya, Auto spare parts dealer Kenya, Car hire business Kenya, Car sales agents in Kenya, Used cars Nairobi, Car hire in Mombasa, Spare parts in Kisumu, Buy Toyota in Nakuru, Car sales Eldoret.",
   openGraph: {
     title: "Kenautos Hub - Buy, Sell or Hire Luxury Cars in Kenya.",
     description: "Kenautos is Kenya's trusted online platform to buy, sell, or hire cars. Browse listings for new and used vehicles from individuals and dealers across the country.",

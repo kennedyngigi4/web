@@ -6,9 +6,10 @@ import { SparePart } from "@/lib/models";
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link";
 import Image from "next/image";
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+import { useSession } from "next-auth/react";
+import DealerApiService from "@/lib/dealer_apiservice";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 
@@ -19,12 +20,18 @@ export const columns: ColumnDef<SparePart>[] = [
         accessorKey: "title",
         cell: ({ row }) => {
             const title = row?.original?.title;
-            const image = row?.original.images[0].image;
+            const images = row?.original.images;
+            console.log(images);
 
             return (
                 <>
-                    <div className="h-35 w-[90%] relative">
-                        <Image src={`http://127.0.0.1:8000${image}`} alt="" fill className="object-cover" />
+                    <div className="flex h-35 w-[90%] relative items-center justify-center">
+                        {images.length > 0 ? (<> 
+                            <Image src={`${process.env.NEXT_PUBLIC_IMGURL}${images[0].image}`} alt="" fill className="object-cover" />
+                        </>) : (<>
+                            <p className="text-slate-500 text-xs">Image coming soon</p>
+                        </>)}
+                        
                     </div>
                     <p className="font-semibold pt-2 first-letter:capitalize lower">{title}</p>
                     
@@ -70,10 +77,28 @@ export const columns: ColumnDef<SparePart>[] = [
                 year: "numeric",
                 month: "short",
                 day: "numeric"
-            })
+            });
+            const { data:session} = useSession();
+            const router = useRouter();
 
             const handleDelete = async() => {
-
+                try{
+                    if (!session?.accessToken) {
+                        throw new Error("You must be logged in.");
+                    }
+        
+                    const res = await DealerApiService.delete(`dealers/spare/${id}`, session?.accessToken);
+                    
+                    if(res.success){
+                        toast.success(res.message, { position: "top-center", });
+                        window.location.reload();
+                    } else {
+                        toast.error(res.message, { position: "top-center", });
+                        window.location.reload();
+                    }
+                } catch(e){
+                    console.log(e);
+                }
             }
 
             return (

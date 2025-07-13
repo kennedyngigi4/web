@@ -20,6 +20,7 @@ import { Label } from '@/components/ui/label';
 import ApiServices from '@/lib/apiservice';
 import DealerApiService from '@/lib/dealer_apiservice';
 import Image from 'next/image';
+import { spareUpload } from '@/lib/actions';
 
 const sparesSchema = z.object({
     title: z.string().min(1, { message: "Title is required." }),
@@ -147,9 +148,9 @@ const SpareParts = () => {
         formData.append("condition", values.condition);
         formData.append("description", values.description);
         // formData.append("package_id", selectedPackage?.pid);
-        images.forEach((image) => {
-            formData.append("images", image);
-        });
+        // images.forEach((image) => {
+        //     formData.append("images", image);
+        // });
 
 
         if (values.vehicle_model) {
@@ -161,12 +162,13 @@ const SpareParts = () => {
         }
 
 
-        const res = await DealerApiService.post("dealers/spare_upload/", session?.accessToken, formData);
+        const res = await spareUpload(formData);
+        console.log(res)
         if(res.success){
             setLoading(false);
-            toast.success(res.message, { position: "top-center" });
+
+            imagesUpload(res.id, images);
             
-            router.push("/dealer/spares");
             
         } else {
             setLoading(false);
@@ -174,6 +176,30 @@ const SpareParts = () => {
         }
 
     }
+
+
+    const imagesUpload = async(id: string, images: File[]) => {
+            console.log(images)
+            try {
+                const res = await DealerApiService.sparesimages("dealers/spare_images_upload/", id, images);
+                if(res.success){
+                    toast.success(res.message, { position: "top-center" });
+                    // if (!packages?.can_upload){
+                    //     setShowMpesaDialog(true);
+                    // }
+                    toast.success("Upload successful.", { position: "top-center" });
+                    
+                    router.push("/dealer/spares");
+                } else {
+                    toast.error("An error occurred.", { position: "top-center"});
+                }
+            } catch(e){
+                console.log(e);
+            }
+    }
+
+
+
 
     return (
         <section className="min-h-screen flex justify-center items-start">
@@ -208,7 +234,7 @@ const SpareParts = () => {
 
                             {previewUrls.map((src, index) => (
                                 <div key={index} className="ml-3 mb-3 relative">
-                                    <Image src={src} alt="Preview" className="md:w-30 md:h-30 w-60 h-60 object-cover rounded-md" />
+                                    <Image src={src} alt="Preview" width={120} height={120} className="md:w-30 md:h-30 w-60 h-60 object-cover rounded-md" />
                                     <button
                                         onClick={() => handleRemoveImage(index)}
                                         className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 cursor-pointer"
@@ -222,7 +248,7 @@ const SpareParts = () => {
 
                         <div className="py-14">
                             <Label>Select vehicle type</Label>
-                            <div className="flex gap-4 w-full pt-5">
+                            <div className="flex flex-wrap gap-4 w-full pt-5">
 
                                 {/* Bike */}
                                 <div

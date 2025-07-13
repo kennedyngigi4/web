@@ -35,7 +35,7 @@ const formSchema = z.object({
     tradein: z.string().optional(),
     financing: z.string().optional(),
     usage: z.string().min(1, { message: "Usage is required" }),
-    description: z.string().min(10, { message: "Description should be at least 10 characters" })
+    description: z.string().min(20, { message: "Description should be at least 20 characters" })
 });
 
 
@@ -205,9 +205,9 @@ const SellCarPage = () => {
         formData.append("description", values.description);
         formData.append("vehicle_type", selectedVehicle);
         formData.append("package_id", selectedPackage?.pid);
-        images.forEach((image) => {
-            formData.append("images", image);
-        });
+        // images.forEach((image) => {
+        //     formData.append("images", image);
+        // });
 
         if(values.mileage){
             formData.append("mileage", values.mileage);
@@ -224,24 +224,41 @@ const SellCarPage = () => {
         
 
         const res = await vehicleUpload(formData);
-
+        console.log(res);
         
         if(res.success){
             setLoading(false);
             setUploadedVehicleID(res.id);
-            toast.success(res.message, { position: "top-center" });
 
-            if (!packages?.can_upload){
-                setShowMpesaDialog(true);
-            }
+            imagesUpload(res.id, images);
+
             
-            router.push("/dealer/mycars");
             
         } else {
             setLoading(false);
             toast.error(res.message, { position: "top-center" });
         }
         
+    }
+
+
+    const imagesUpload = async(id: string, images: File[]) => {
+        console.log(images)
+        try {
+            const res = await DealerApiService.images("dealers/images_upload", id, images);
+            if(res.success){
+                toast.success(res.message, { position: "top-center" });
+                if (!packages?.can_upload){
+                    setShowMpesaDialog(true);
+                }
+                
+                router.push("/dealer/mycars");
+            } else {
+                toast.error("An error occurred.", { position: "top-center"});
+            }
+        } catch(e){
+            console.log(e);
+        }
     }
 
     
@@ -301,7 +318,7 @@ const SellCarPage = () => {
                             
                             {previewUrls.map((src, index) => (
                                 <div key={index} className="ml-3 mb-3 relative">
-                                    <Image src={src} alt="Preview" className="md:w-30 md:h-30 w-60 h-60 object-cover rounded-md" />
+                                    <Image src={src} alt="Preview" width={120} height={120} className="md:w-30 md:h-30 w-60 h-60 object-cover rounded-md" />
                                     <button
                                         onClick={() => handleRemoveImage(index)}
                                         className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 cursor-pointer"
@@ -314,7 +331,7 @@ const SellCarPage = () => {
                         {imgErrorMessage && <p className="text-red-600 text-xs">{imgErrorMessage}</p>}
                         <div className="py-14">
                             <Label>Select vehicle type</Label>
-                            <div className="flex gap-4 w-full pt-5">
+                            <div className="flex gap-4 flex-wrap w-full pt-5">
 
                                 {/* Bike */}
                                 <div
@@ -640,7 +657,7 @@ const SellCarPage = () => {
                                                 <FormControl>
                                                     <Textarea className='bg-white' {...field}/>
                                                 </FormControl>
-                                                <FormDescription>Describe any other features for the vehicle</FormDescription>
+                                                <FormDescription className='text-red-500'>Description must be at least 20 characters long.</FormDescription>
                                                 <FormMessage />
                                             </FormItem>
                                         )}

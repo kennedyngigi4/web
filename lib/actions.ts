@@ -94,6 +94,33 @@ export async function vehicleUpload(formData: any){
 
 
 
+export async function spareUpload(formData: any) {
+    // Dealer upload spares
 
+    const session = await auth();
+
+    try {
+        const res = await fetch(`${process.env.APIURL}/dealers/spare_upload/`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Token ${session?.accessToken}`,
+            },
+            body: formData
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            return { "success": true, "message": data.message, "id": data.id };
+        } else {
+            return { "success": false, "message": data.message };
+        }
+
+
+    } catch (e) {
+        return { "success": false, "message": "Something went wrong " + e }
+    }
+
+}
 
 

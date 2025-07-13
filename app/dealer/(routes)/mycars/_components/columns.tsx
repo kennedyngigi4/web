@@ -9,10 +9,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
-const { data: session } = useSession();
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 
 
 export const columns: ColumnDef<VehicleModel>[] = [
@@ -84,6 +81,8 @@ export const columns: ColumnDef<VehicleModel>[] = [
             
 
             const handleDelete = async() => {
+                const { data: session } = useSession();
+                
                 if (!session?.accessToken) {
                     throw new Error("You must be logged in.");
                 }

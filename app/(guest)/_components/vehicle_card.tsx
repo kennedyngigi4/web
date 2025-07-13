@@ -23,23 +23,27 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
             )}
             <Link href={`/${vehicle?.make}/${vehicle?.model}/${vehicle?.slug}`}>
                 <div className="w-full sm:h-55 h-38 relative overflow-hidden">
-                    { String(vehicle?.images[0].image).startsWith("http") ? (
-                          <Image
-                              src={vehicle?.images[0].image}
-                              alt={`${vehicle?.year_of_make} ${vehicle?.make} ${vehicle?.model} for sale at Kenautos Hub Nairobi, Kenya. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
-                              fill
-                              className="rounded-lg object-cover"
-                              sizes="(max-width: 640px) 100vw, 400px"
-                        />
-                    ) : (
-                        <Image
-                            src={`${process.env.NEXT_PUBLIC_IMGURL}${vehicle?.images[0].image}`}
-                            alt={`${vehicle?.year_of_make} ${vehicle?.make} ${vehicle?.model} for sale at Kenautos Hub Nairobi, Kenya. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
-                            fill
-                            className="rounded-lg object-cover"
-                            sizes="(max-width: 640px) 100vw, 400px"
-                        />
-                    )}
+                    {vehicle?.images.length > 0 ? ( <> 
+                        { String(vehicle?.images[0].image).startsWith("http") ? (
+                            <Image
+                                src={vehicle?.images[0].image}
+                                alt={`${vehicle?.year_of_make} ${vehicle?.make} ${vehicle?.model} for sale at Kenautos Hub Nairobi, Kenya. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
+                                fill
+                                className="rounded-lg object-cover"
+                                sizes="(max-width: 640px) 100vw, 400px"
+                            />
+                        ) : (
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_IMGURL}${vehicle?.images[0].image}`}
+                                alt={`${vehicle?.year_of_make} ${vehicle?.make} ${vehicle?.model} for sale at Kenautos Hub Nairobi, Kenya. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
+                                fill
+                                className="rounded-lg object-cover"
+                                sizes="(max-width: 640px) 100vw, 400px"
+                            />
+                        )}
+                    </>) : (<>
+                        <p>Images coming soon.</p>
+                    </>)}
                     
                 </div>
                 <div className="flex flex-col pt-3">
