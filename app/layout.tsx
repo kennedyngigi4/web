@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "Kenautos",
     images: [
       {
-        url: "https://kenautos.co.ke/og-image.png",
+        url: "https://kenautos.co.ke/og-img.png",
         width: 1200,
         height: 630,
         alt: "Kenautos Hub - Buy, Sell or Hire Luxury Cars in Kenya.",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kenautos Hub - Buy, Sell or Hire Luxury Cars in Kenya.",
     description: "Kenautos is Kenya's trusted online platform to buy, sell, or hire cars. Browse listings for new and used vehicles from individuals and dealers across the country.",
-    images: ["https://kenautos.co.ke/og-image.png"],
+    images: ["https://kenautos.co.ke/og-img.png"],
   },
 };
 

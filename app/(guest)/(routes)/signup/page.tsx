@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     siteName: "Kenautos",
     images: [
       {
-        url: "https://kenautos.co.ke/og-signup.png",
+        url: "https://kenautos.co.ke/og-register.png",
         width: 1200,
         height: 630,
         alt: "Sell Cars Faster with Kenautos – Free Car & Spare Parts Listings in Kenya",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sell Cars Faster with Kenautos – Free Car & Spare Parts Listings in Kenya",
     description: "Join Kenautos today to buy or sell cars and spare parts across Kenya.Connect with trusted car dealers, brokers, and auto part sellers.Create your free account and start listing or browsing instantly!",
-    images: ["https://kenautos.co.ke/og-signup.png"],
+    images: ["https://kenautos.co.ke/og-register.png"],
   },
 };
 
