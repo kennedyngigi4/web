@@ -45,11 +45,11 @@ const IndexPage = () => {
         
         <div className="relative z-10 flex flex-col justify-center items-center py-8 px-5 text-center space-y-5">
           <div className="w-full md:w-[60%] mx-auto">
-            <h1 className="text-4xl md:text-5xl font-light leading-tight">
+            <h1 className="text-3xl md:text-5xl font-light leading-tight">
               Your <span className="font-extrabold text-orange-400">trusted car marketplace</span>
             </h1>
 
-            <p className="text-lg text-gray-700 mt-4">
+            <p className="text-lg text-gray-700 mt-4 max-md:text-sm">
               Discover the easiest way to buy, sell, or hire cars in Kenya. KENAUTOS connects you with trusted sellers, verified listings, and a wide range of vehicles – all in one place.
             </p>
 

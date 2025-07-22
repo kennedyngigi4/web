@@ -14,8 +14,8 @@ const Footer = () => {
       <div className="grid md:grid-cols-3 grid-cols-1 text-white gap-8 max-md:ps-1">
         <div className="pb-10 flex flex-col justify-center space-y-5">
           <div>
-            <Image src="/logo.png" alt="KENAUTOS HUB" width={280} height={50} />
-            <h2 className="text-xl">Your Trusted Car Marketplace</h2>
+            <Image src="/logo.png" alt="KENAUTOS HUB" width={200} height={50} />
+            <h2 className="text-xl max-md:text-sm">Your Trusted Car Marketplace</h2>
           </div>
 
           <div className="flex flex-row space-x-3.5">

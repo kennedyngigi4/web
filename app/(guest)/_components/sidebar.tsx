@@ -5,7 +5,7 @@ import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetT
 import { Button } from '@/components/ui/button';
 import { MenuIcon } from 'lucide-react';
 import SidebarItems from './sidebar_items';
-
+import Image from 'next/image';
 
 
 const Sidebar = () => {
@@ -19,8 +19,10 @@ const Sidebar = () => {
             </SheetTrigger>
             <SheetContent side="left">
                 <SheetHeader>
-                    <SheetTitle>KENAUTOS</SheetTitle>
-                    <SheetDescription className="text-sm">We Live. We Drive</SheetDescription>
+                    <SheetTitle>
+                        <Image src="/logo2.png" alt="KENAUTOS HUB" width={140} height={50} />
+                    </SheetTitle>
+                    <SheetDescription className="text-xs">We Live. We Drive</SheetDescription>
                 </SheetHeader>
                 <div className="flex-1 overflow-y-auto py-4">
                     <SidebarItems setOpen={setOpen} />

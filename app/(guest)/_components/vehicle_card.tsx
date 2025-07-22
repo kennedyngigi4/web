@@ -22,7 +22,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
                 </div>
             )}
             <Link href={`/${vehicle?.make}/${vehicle?.model}/${vehicle?.slug}`}>
-                <div className="w-full sm:h-55 h-38 relative overflow-hidden">
+                <div className="w-full sm:h-55 h-55 relative overflow-hidden">
                     {vehicle?.images.length > 0 ? ( <> 
                         { String(vehicle?.images[0].image).startsWith("http") ? (
                             <Image

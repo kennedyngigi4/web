@@ -22,6 +22,10 @@ const guestRoutes = [
         href: "/trucks",
     },
     {
+        label: "Spare Parts",
+        href: "/spare-parts",
+    },
+    {
         label: "Find me a car",
         href: "/find-me-car",
     },
