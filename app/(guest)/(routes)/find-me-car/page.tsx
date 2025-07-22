@@ -66,7 +66,7 @@ const FindMeCar = () => {
           <div className="bg-orange-400 p-2 rounded-2xl inline-block mb-4 w-fit">
             <p className="text-white font-medium max-md:text-sm">We are here to help you find your dream car.</p>
           </div>
-          <h2 className="text-3xl max-md:text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl max-md:text-xl font-bold text-gray-900 mb-4">
             Skip the stress of car hunting. <br />Let us do it for you!
           </h2>
           <p className="text-gray-600 text-lg">

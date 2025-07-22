@@ -50,11 +50,11 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
                     <h1 className="font-semibold truncate max-sm:text-sm">{vehicle?.year_of_make} {vehicle?.make} {vehicle?.model}</h1>
                     {vehicle?.price_dropped ?
                         (<>
-                            <h1 className="text-orange-500 font-extrabold truncate text-lg">KSh. {parseInt(vehicle?.price_drop).toLocaleString()} <span className="text-red-600 text-sm line-through font-normal">KSh. {parseInt(vehicle?.price).toLocaleString()}</span></h1>
+                            <h1 className="text-orange-500 font-normal truncate text-lg">KSh. {parseInt(vehicle?.price_drop).toLocaleString()} <span className="text-red-600 text-sm line-through font-normal">KSh. {parseInt(vehicle?.price).toLocaleString()}</span></h1>
                         </>)
                         :
                         (<>
-                            <h1 className="text-orange-500 font-extrabold text-lg">KSh. {parseInt(vehicle?.price).toLocaleString()}</h1>
+                            <h1 className="text-orange-500 font-normal text-lg">KSh. {parseInt(vehicle?.price).toLocaleString()}</h1>
                         </>)
                     }
                     <div className='md:flex md:flex-row flex-wrap justify-between hidden pt-2'>

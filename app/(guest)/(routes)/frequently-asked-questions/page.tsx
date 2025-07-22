@@ -22,7 +22,7 @@ const FrequentlyAskedQuestions = () => {
     return (
         <section className="min-h-screen flex flex-col space-y-3.5 p-6">
             <div>
-                <h1 className="text-3xl max-md:text-2xl font-semibold text-orange-400">Frequently Asked Questions</h1>
+                <h1 className="text-3xl max-md:text-xl font-semibold text-orange-400">Frequently Asked Questions</h1>
             </div>
             <div>
                 <Accordion type="single" collapsible>
