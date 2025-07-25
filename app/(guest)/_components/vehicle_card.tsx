@@ -50,15 +50,15 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
                     <h1 className="font-semibold truncate max-sm:text-sm">{vehicle?.year_of_make} {vehicle?.make} {vehicle?.model}</h1>
                     {vehicle?.price_dropped ?
                         (<>
-                            <h1 className="text-orange-500 font-normal truncate text-lg">KSh. {parseInt(vehicle?.price_drop).toLocaleString()} <span className="text-red-600 text-sm line-through font-normal">KSh. {parseInt(vehicle?.price).toLocaleString()}</span></h1>
+                            <h1 className="text-orange-500 font-normal truncate">KSh. {parseInt(vehicle?.price_drop).toLocaleString()} <span className="text-red-600 text-sm line-through font-normal">KSh. {parseInt(vehicle?.price).toLocaleString()}</span></h1>
                         </>)
                         :
                         (<>
-                            <h1 className="text-orange-500 font-normal text-lg">KSh. {parseInt(vehicle?.price).toLocaleString()}</h1>
+                            <h1 className="text-orange-500 font-normal">KSh. {parseInt(vehicle?.price).toLocaleString()}</h1>
                         </>)
                     }
                     <div className='md:flex md:flex-row flex-wrap justify-between hidden pt-2'>
-                        <p className="text-xs flex items-center justify-center bg-slate-200 py-1 px-2 rounded-2xl">{vehicle.drive}</p>
+                        {/* <p className="text-xs flex items-center justify-center bg-slate-200 py-1 px-2 rounded-2xl">{vehicle.drive}</p> */}
                         <p className="text-xs flex items-center justify-center bg-slate-100 py-1 px-2 rounded-2xl">{vehicle.fuel}</p>
                         <p className="text-xs flex items-center justify-center bg-slate-100 py-1 px-2 rounded-2xl">{vehicle.engine_capacity}cc</p>
                         <p className="text-xs md:flex items-center hidden justify-center bg-slate-100 py-1 px-2 rounded-2xl">{vehicle.transmission}</p>
