@@ -6,14 +6,15 @@ const ApiServices = {
         try{
             const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/${url}`, {
                 method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-Type": "application/json",
-                }
+                body: data,
             });
-            const resdata = await res.json();
-            return resdata;
+
             
+
+            const resdata = await res.json();
+            console.log(resdata);
+            return resdata;
+
         } catch(e){
             return { "success": false, "message": e }
         }
