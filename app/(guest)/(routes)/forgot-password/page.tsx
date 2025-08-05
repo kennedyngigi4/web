@@ -9,6 +9,8 @@ import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel } from '
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import ApiServices from '@/lib/apiservice';
+import { toast } from 'sonner';
 
 
 const formSchema = z.object({
@@ -26,8 +28,17 @@ const ForgotPassword = () => {
 
     const { isValid, isSubmitting } = form.formState;
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+
+        const formData = new FormData();
+        formData.append("email", values.email);
+        const res = await ApiServices.post('account/forgot-password/', formData);
+        console.log(res);
+        if(res.success){
+            toast.success(res.message);
+        } else {
+            toast.error(res.message);
+        }
     }
 
 

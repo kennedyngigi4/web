@@ -2,9 +2,11 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import ApiServices from '@/lib/apiservice';
 import { Eye, EyeClosed } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 
 type Props = {
@@ -24,6 +26,20 @@ const ResetClient = ({ uid, token }: Props) => {
         console.log(uid);
         console.log(token);
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("uid", uid);
+        formData.append("token", token);
+        formData.append("new_password", newPassword);
+
+        const res = await ApiServices.post('account/reset-password/', formData);
+        console.log(res);
+        if (res.success) {
+            toast.success(res.message);
+        } else {
+            toast.error(res.message);
+        }
+
         setLoading(true);
         router.refresh();
     }

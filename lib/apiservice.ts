@@ -11,7 +11,9 @@ const ApiServices = {
                     "Content-Type": "application/json",
                 }
             });
-            return res.json();
+            const resdata = await res.json();
+            return resdata;
+            
         } catch(e){
             return { "success": false, "message": e }
         }
