@@ -23,8 +23,6 @@ const ResetClient = ({ uid, token }: Props) => {
 
 
     const handleSubmit = async (e: React.FormEvent) => {
-        console.log(uid);
-        console.log(token);
         e.preventDefault();
 
         const formData = new FormData();
@@ -36,6 +34,7 @@ const ResetClient = ({ uid, token }: Props) => {
         console.log(res);
         if (res.success) {
             toast.success(res.message);
+            router.push("/signin");
         } else {
             toast.error(res.message);
         }
