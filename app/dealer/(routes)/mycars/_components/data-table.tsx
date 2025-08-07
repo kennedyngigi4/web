@@ -21,6 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React from "react";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -49,15 +50,23 @@ export function DataTable<TData, TValue>({
 
     return (
         <div>
-            <div className="flex items-center py-4">
-                <Input
-                    placeholder="Filter model..."
-                    value={(table.getColumn("model")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("model")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
+            <div className="flex md:flex-row flex-col justify-between gap-4 items-center py-4">
+                <div>
+                    <Input
+                        placeholder="Filter model..."
+                        value={(table.getColumn("model")?.getFilterValue() as string) ?? ""}
+                        onChange={(event) =>
+                            table.getColumn("model")?.setFilterValue(event.target.value)
+                        }
+                        className="max-w-sm"
+                    />
+                </div>
+
+                <div>
+                    <Link href="/dealer/sell/vehicle">
+                        <Button className="cursor-pointer">Upload Vehicle</Button>
+                    </Link>
+                </div>
             </div>
             <div className="rounded-md border">
                 <Table>

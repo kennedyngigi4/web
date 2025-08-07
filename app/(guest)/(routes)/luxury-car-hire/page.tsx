@@ -105,12 +105,27 @@ const LuxuryCarHirePage = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
           {['mercedes_benz.png', 'range_rover.png', 'land_cruiser.png', 'bmw.png', 'van.png'].map((img, idx) => (
             <div key={idx} className="rounded-xl overflow-hidden shadow-md">
-              <Image src={`/images/hire/${img}`} alt="Luxury car" className="w-full h-60 object-cover" />
-              <p className="text-center uppercase py-2 text-sm font-semibold text-gray-600">
-                {img.replace('.png', '').replace("_"," ").replace(/([a-z])([A-Z])/g, '$1 $2')}
+              {/* Image container */}
+              <div className="relative h-60 w-full">
+                <Image
+                  src={`/images/hire/${img}`}
+                  alt="Luxury car"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Text below the image */}
+              <p className="text-center uppercase py-2 text-sm font-semibold text-gray-600 bg-white">
+                {img
+                  .replace('.png', '')
+                  .replace('_', ' ')
+                  .replace(/([a-z])([A-Z])/g, '$1 $2')}
               </p>
             </div>
           ))}
+
+
         </div>
       </section>
 

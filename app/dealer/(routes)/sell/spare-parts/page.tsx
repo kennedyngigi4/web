@@ -128,7 +128,7 @@ const SpareParts = () => {
 
     const onSubmit = async(values: z.infer<typeof sparesSchema>) => {
         if(images.length < 1){
-            toast.error("Upload at least 3 images", { position: "top-center" });
+            toast.error("Upload at least 1 image", { position: "top-center" });
             return;
         }
         if (!selectedVehicle) {
@@ -165,7 +165,7 @@ const SpareParts = () => {
         const res = await spareUpload(formData);
         console.log(res)
         if(res.success){
-            setLoading(false);
+            // setLoading(false);
 
             imagesUpload(res.id, images);
             
@@ -179,23 +179,23 @@ const SpareParts = () => {
 
 
     const imagesUpload = async(id: string, images: File[]) => {
-            console.log(images)
-            try {
-                const res = await DealerApiService.sparesimages("dealers/spare_images_upload/", id, images);
-                if(res.success){
-                    toast.success(res.message, { position: "top-center" });
-                    // if (!packages?.can_upload){
-                    //     setShowMpesaDialog(true);
-                    // }
-                    toast.success("Upload successful.", { position: "top-center" });
-                    
-                    router.push("/dealer/spares");
-                } else {
-                    toast.error("An error occurred.", { position: "top-center"});
-                }
-            } catch(e){
-                console.log(e);
+       
+        try {
+            const res = await DealerApiService.sparesimages("dealers/spare_images_upload/", id, images);
+            if(res.success){
+                toast.success(res.message, { position: "top-center" });
+                // if (!packages?.can_upload){
+                //     setShowMpesaDialog(true);
+                // }
+                toast.success("Upload successful.", { position: "top-center" });
+                
+                router.push("/dealer/spares");
+            } else {
+                toast.error("An error occurred.", { position: "top-center"});
             }
+        } catch(e){
+            console.log(e);
+        }
     }
 
 

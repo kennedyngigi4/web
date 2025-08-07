@@ -224,10 +224,10 @@ const SellCarPage = () => {
         
 
         const res = await vehicleUpload(formData);
-        console.log(res);
+        
         
         if(res.success){
-            setLoading(false);
+            
             setUploadedVehicleID(res.id);
 
             imagesUpload(res.id, images);
@@ -243,7 +243,7 @@ const SellCarPage = () => {
 
 
     const imagesUpload = async(id: string, images: File[]) => {
-        console.log(images)
+        
         try {
             const res = await DealerApiService.images("dealers/images_upload", id, images);
             if(res.success){
@@ -251,6 +251,7 @@ const SellCarPage = () => {
                 if (!packages?.can_upload){
                     setShowMpesaDialog(true);
                 }
+                // setLoading(false);
                 
                 router.push("/dealer/mycars");
             } else {

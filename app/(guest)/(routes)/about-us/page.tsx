@@ -24,14 +24,14 @@ const AboutUs = () => {
 
       <section className="relative w-full h-[400px] md:h-[500px]">
         {/* Background image */}
-        <div className="absolute inset-0 rounded-4xl">
+        <div className="absolute inset-0 rounded-2xl">
           <Image
             src="/images/mission.jpg"
             alt="Mission background"
             fill
-            className="object-cover rounded-4xl"
+            className="object-cover rounded-2xl"
           />
-          <div className="absolute inset-0 bg-black/70 rounded-4xl" />
+          <div className="absolute inset-0 bg-black/70 rounded-2xl" />
         </div>
 
         {/* Mission text */}

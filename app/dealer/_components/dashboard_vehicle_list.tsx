@@ -68,7 +68,7 @@ const DashboardVehicleList = ({ vehicle } : DashboardVehicleListProps) => {
         <div className="lg:col-span-2">
             <div className="flex lg:flex-col flex-row lg:justify-center justify-between max-md:py-3 lg:items-center">
                 <div>
-                    <h1 className="text-sm">30 Clicks</h1>
+                    <h1 className="text-sm">Clicks</h1>
                 </div>
                 
             </div>

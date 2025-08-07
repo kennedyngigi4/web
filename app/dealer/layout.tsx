@@ -26,10 +26,10 @@ const dealerRoutes = [
     label: "Spare Parts",
     href: "/dealer/spares",
   },
-  {
-    label: "Packages",
-    href: "/dealer/packages",
-  },
+  // {
+  //   label: "Packages",
+  //   href: "/dealer/packages",
+  // },
   {
     label: "Notifications",
     href: "/dealer/notifications",
