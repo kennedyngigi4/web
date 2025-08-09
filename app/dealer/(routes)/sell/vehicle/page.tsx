@@ -707,7 +707,7 @@ const SellCarPage = () => {
 
                                 <div className="flex justify-center gap-20">
                                     <Button type="button" variant="ghost" onClick={handleBacktoImages} className="cursor-pointer"><ArrowLeft /> Back</Button>
-                                    <Button type="submit" className="bg-orange-400 cursor-pointer" disabled={!isValid || isSubmitting }>{loading ? "Uploading ...." : "Upload"}</Button>
+                                    <Button type="submit" className="bg-orange-400 cursor-pointer" disabled={!isValid || isSubmitting || loading }>{loading ? "Uploading ...." : "Upload"}</Button>
                                 </div>
                             </form>
                         </Form>

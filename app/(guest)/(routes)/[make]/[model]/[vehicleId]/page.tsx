@@ -10,6 +10,7 @@ type VehicleIdPageProps = {
 
 export async function generateMetadata({ params }: VehicleIdPageProps): Promise<Metadata> {
     const vehicleData = await fetchVehicle(`${params.vehicleId}`);
+    
     const title = `${vehicleData.year_of_make} ${vehicleData.make} ${vehicleData.model} For sale | Kenautos Hub Your Trusted Car Marketplace in Nairobi Kenya`;
     const description = vehicleData.description;
     const keywords = `${vehicleData.year_of_make} ${vehicleData.make} ${vehicleData.model} car dealers, car sales, sell car in Nairobi Kenya, buy car in Nairobi Kenya`;

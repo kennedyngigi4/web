@@ -458,7 +458,7 @@ const SpareParts = () => {
                                         <Button onClick={handleBacktoImages} type="button" variant="ghost" className="cursor-pointer"><ArrowLeft /> Back</Button>
                                     </div>
                                     <div>
-                                        <Button type="submit" className="bg-orange-400 cursor-pointer" disabled={!isValid || isSubmitting }>{loading ? "Uploading ...." : "Upload"}</Button>
+                                        <Button type="submit" className="bg-orange-400 cursor-pointer" disabled={!isValid || isSubmitting || loading }>{loading ? "Uploading ...." : "Upload"}</Button>
                                     </div>
                                 </div>
 

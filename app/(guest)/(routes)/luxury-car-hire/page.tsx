@@ -45,8 +45,22 @@ const LuxuryCarHirePage = () => {
   const { isValid, isSubmitting } = form.formState;
 
   const handleSubmit = async(values: z.infer<typeof bookingSchema>) => {
+
+    const formData = new FormData();
+    formData.append("fullname", values.fullname);
+    formData.append("phone", values.phone);
+    formData.append("occasion", values.occasion);
+    formData.append("vehicle", values.vehicle);
+    formData.append("occasion_date", values.occasion_date);
+    formData.append("pickup_time", values.pickup_time);
+    formData.append("pickup_location", values.pickup_location);
+    if(values.additionals){
+      formData.append("additionals", values.additionals);
+    }
+    
+
     try {
-      const resp = await ApiServices.post("listings/car_hire", values);
+      const resp = await ApiServices.post("listings/car_hire", formData);
       if (resp.success) {
         toast.success("Request sent successfully", { position: "top-center" });
         setTimeout(() => {

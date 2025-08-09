@@ -39,8 +39,20 @@ const FindMeCar = () => {
 
   const onSubmit = async(values: z.infer<typeof formSchema>) => {
    
+
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("phone", values.phone);
+    formData.append("make", values.make);
+    formData.append("model", values.model);
+    formData.append("budget", values.budget);
+    if (values.notes){
+      formData.append("notes", values.notes);
+    }
+    
+
     try{
-      const resp = await ApiServices.post("listings/search_request", values);
+      const resp = await ApiServices.post("listings/search_request", formData);
       if(resp.success){
         toast.success("Request sent successfully", { position: "top-center"});
 
