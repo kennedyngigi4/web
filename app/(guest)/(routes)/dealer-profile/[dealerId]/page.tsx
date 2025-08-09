@@ -28,7 +28,7 @@ const DealerDetailsPage = () => {
         {dealerData?.user?.business?.banner ? (
           <div className="relative h-full w-full">
             <Image
-              src={`${process.env.NEXT_PUBLIC_APIURL}${dealerData.user.business.banner.startsWith('/') ? '' : '/'
+              src={`${process.env.NEXT_PUBLIC_IMGURL}${dealerData.user.business.banner.startsWith('/') ? '' : '/'
                 }${dealerData.user.business.banner}`}
               alt="Business banner"
               fill
