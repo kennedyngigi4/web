@@ -52,8 +52,6 @@ export async function generateMetadata({ params }: VehicleIdPageProps): Promise<
 export default async function VehicleIdPage({ params }: VehicleIdPageProps) {
     const vehicleData = await fetchVehicle(`${params.vehicleId}`);
 
-    console.log(vehicleData);
-
     return (
         <Suspense fallback={<LoadingModal />}>
             <VehiclePageClient
