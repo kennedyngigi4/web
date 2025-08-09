@@ -26,10 +26,10 @@ const formSchema = z.object({
     make: z.string().min(1, { message: "Make is required" }),
     model: z.string().min(1, { message: "Model is required" }),
     yom: z.string().min(1, { message: "Year of manufacture is required" }),
-    transmission: z.string({}),
+    transmission: z.string().optional(),
     fuel: z.string().min(1, { message: "Fuel type is required" }),
     mileage: z.string().optional(),
-    drive: z.string().min(1, { message: "Drive type is required" }),
+    drive: z.string().optional(),
     engine_capacity: z.string().min(1, { message: "Engine capacity(cc) is required" }),
     price: z.string().min(1, { message: "Price is required" }),
     tradein: z.string().optional(),
@@ -458,30 +458,36 @@ const SellCarPage = () => {
                                             </FormItem>
                                         )}
                                     />
-                                    <FormField
-                                        name="transmission"
-                                        control={form.control}
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Transmission</FormLabel>
-                                                <FormControl>
-                                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                        <SelectTrigger className='w-full bg-white'>
-                                                            <SelectValue placeholder="Transmission" />
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            <SelectItem value='AMT'>AMT</SelectItem>
-                                                            <SelectItem value='Automatic'>Automatic</SelectItem>
-                                                            <SelectItem value='CVT'>CVT</SelectItem>
-                                                            <SelectItem value='Manual'>Manual</SelectItem>
-                                                            
-                                                        </SelectContent>
-                                                    </Select>
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+
+                                    {(selectedVehicle === "car" || selectedVehicle === "truck") && (
+                                        <FormField
+                                            name="transmission"
+                                            control={form.control}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Transmission</FormLabel>
+                                                    <FormControl>
+                                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                            <SelectTrigger className='w-full bg-white'>
+                                                                <SelectValue placeholder="Transmission" />
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value='Automatic'>Automatic</SelectItem>
+                                                                <SelectItem value='CVT'>CVT</SelectItem>
+                                                                <SelectItem value='DCT'>DCT</SelectItem>
+                                                                <SelectItem value='Manual'>Manual</SelectItem>
+                                                                <SelectItem value='Semi Automatic'>Semi Automatic</SelectItem>
+                                                                <SelectItem value='Sport AT'>Sport AT</SelectItem>
+                                                                <SelectItem value='Unspecified'>Unspecified</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    )}
+                                    
                                     <FormField
                                         name="fuel"
                                         control={form.control}
@@ -494,10 +500,16 @@ const SellCarPage = () => {
                                                             <SelectValue placeholder="Choose fuel type" />
                                                         </SelectTrigger>
                                                         <SelectContent>
-                                                            <SelectItem value='Diesel'>Diesel</SelectItem>
-                                                            <SelectItem value='Electric'>Electric</SelectItem>
-                                                            <SelectItem value='Hybrid'>Hybrid</SelectItem>
+                                                            <SelectItem value='Hybrid(LPG)'>Hybrid(LPG)</SelectItem>
+                                                            <SelectItem value='Hydrogen'>Hydrogen</SelectItem>
                                                             <SelectItem value='Petrol'>Petrol</SelectItem>
+                                                            <SelectItem value='Diesel'>Diesel</SelectItem>
+                                                            <SelectItem value='Hybrid(Petrol)'>Hybrid(Petrol)</SelectItem>
+                                                            <SelectItem value='LPG'>LPG</SelectItem>
+                                                            <SelectItem value='Electric'>Electric</SelectItem>
+                                                            <SelectItem value='Hybrid(Diesel)'>Hybrid(Diesel)</SelectItem>
+                                                            <SelectItem value='CNG'>CNG</SelectItem>
+                                                            <SelectItem value='Other'>Other</SelectItem>
                                                         </SelectContent>
                                                     </Select>
                                                 </FormControl>
@@ -505,30 +517,32 @@ const SellCarPage = () => {
                                             </FormItem>
                                         )}
                                     />
-                                    <FormField
-                                        name="drive"
-                                        control={form.control}
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Drive</FormLabel>
-                                                <FormControl>
-                                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                        <SelectTrigger className='w-full bg-white'>
-                                                            <SelectValue placeholder="Choose drive type" />
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            <SelectItem value='AWD'>AWD</SelectItem>
-                                                            <SelectItem value='2WD'>2WD</SelectItem>
-                                                            <SelectItem value='4WD'>4WD</SelectItem>
-                                                            <SelectItem value='sDrive'>sDrive</SelectItem>
-                                                            <SelectItem value='xDrive'>xDrive</SelectItem>
-                                                        </SelectContent>
-                                                    </Select>
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+
+                                    {(selectedVehicle === "car" || selectedVehicle === "truck") && (
+                                        <FormField
+                                            name="drive"
+                                            control={form.control}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Drive</FormLabel>
+                                                    <FormControl>
+                                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                            <SelectTrigger className='w-full bg-white'>
+                                                                <SelectValue placeholder="Choose drive type" />
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value='AWD'>AWD</SelectItem>
+                                                                <SelectItem value='2WD'>2WD</SelectItem>
+                                                                <SelectItem value='4WD'>4WD</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    )}
+
                                     <FormField
                                         name="engine_capacity"
                                         control={form.control}
@@ -652,16 +666,26 @@ const SellCarPage = () => {
                                     <FormField
                                         name="description"
                                         control={form.control}
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Description</FormLabel>
-                                                <FormControl>
-                                                    <Textarea className='bg-white' {...field}/>
-                                                </FormControl>
-                                                <FormDescription className='text-red-500'>Description must be at least 20 characters long.</FormDescription>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
+                                        render={({ field }) => {
+                                            const showDescriptionHint = field.value?.length < 20;
+
+                                            return (
+                                                <FormItem>
+                                                    <FormLabel>Description</FormLabel>
+                                                    <FormControl>
+                                                        <Textarea className="bg-white" {...field} />
+                                                    </FormControl>
+
+                                                    {showDescriptionHint && (
+                                                        <FormDescription className="text-red-500">
+                                                            Description must be at least 20 characters long.
+                                                        </FormDescription>
+                                                    )}
+
+                                                    <FormMessage />
+                                                </FormItem>
+                                            );
+                                        }}
                                     />
                                 </div>
                                 
@@ -706,7 +730,7 @@ const SellCarPage = () => {
 
 
                                 <div className="flex justify-center gap-20">
-                                    <Button type="button" variant="ghost" onClick={handleBacktoImages} className="cursor-pointer"><ArrowLeft /> Back</Button>
+                                    <Button type="button" variant="ghost" disabled={loading} onClick={handleBacktoImages} className="cursor-pointer"><ArrowLeft /> Back</Button>
                                     <Button type="submit" className="bg-orange-400 cursor-pointer" disabled={!isValid || isSubmitting || loading }>{loading ? "Uploading ...." : "Upload"}</Button>
                                 </div>
                             </form>

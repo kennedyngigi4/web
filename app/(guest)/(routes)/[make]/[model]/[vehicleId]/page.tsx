@@ -10,6 +10,8 @@ type VehicleIdPageProps = {
 
 export async function generateMetadata({ params }: VehicleIdPageProps): Promise<Metadata> {
     const vehicleData = await fetchVehicle(`${params.vehicleId}`);
+
+    console.log(vehicleData);
     
     const title = `${vehicleData.year_of_make} ${vehicleData.make} ${vehicleData.model} For sale | Kenautos Hub Your Trusted Car Marketplace in Nairobi Kenya`;
     const description = vehicleData.description;
@@ -18,6 +20,10 @@ export async function generateMetadata({ params }: VehicleIdPageProps): Promise<
     if (image && !image.startsWith("http")) {
         image = `https://kenautos.co.ke${image}`;
     }
+
+    // Force HTTPS for api.kenautos.co.ke images
+    image = image.replace("http://api.kenautos.co.ke", "https://api.kenautos.co.ke");
+
     const url = `https://kenautos.co.ke/${encodeURIComponent(vehicleData.make)}/${encodeURIComponent(vehicleData.model)}/${vehicleData.listing_id}`;
 
 
