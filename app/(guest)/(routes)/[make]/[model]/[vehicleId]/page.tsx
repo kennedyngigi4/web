@@ -10,21 +10,19 @@ type VehicleIdPageProps = {
 
 export async function generateMetadata({ params }: VehicleIdPageProps): Promise<Metadata> {
     const vehicleData = await fetchVehicle(`${params.vehicleId}`);
-
-    console.log(vehicleData);
     
-    const title = `${vehicleData.year_of_make} ${vehicleData.make} ${vehicleData.model} For sale | Kenautos Hub Your Trusted Car Marketplace in Nairobi Kenya`;
+    const title = `${vehicleData.year_of_make} ${params.make} ${params.model} For sale | Kenautos Hub Your Trusted Car Marketplace in Nairobi Kenya`;
     const description = vehicleData.description;
-    const keywords = `${vehicleData.year_of_make} ${vehicleData.make} ${vehicleData.model} car dealers, car sales, sell car in Nairobi Kenya, buy car in Nairobi Kenya`;
+    const keywords = `${vehicleData.year_of_make} ${params.make} ${params.model} car dealers, car sales, sell car in Nairobi Kenya, buy car in Nairobi Kenya`;
     let image = vehicleData.images?.[0]?.image || "";
     if (image && !image.startsWith("http")) {
-        image = `https://api.kenautos.co.ke${image}`;
+        image = `${image}`;
     }
 
     // Force HTTPS for api.kenautos.co.ke images
     image = image.replace("http://api.kenautos.co.ke", "https://api.kenautos.co.ke");
 
-    const url = `https://kenautos.co.ke/${encodeURIComponent(vehicleData.make)}/${encodeURIComponent(vehicleData.model)}/${vehicleData.listing_id}`;
+    const url = `https://kenautos.co.ke/${encodeURIComponent(params.make)}/${encodeURIComponent(params.model)}/${params.vehicleId}`;
 
 
     return {
