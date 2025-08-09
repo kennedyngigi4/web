@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: VehicleIdPageProps): Promise<
     const keywords = `${vehicleData.year_of_make} ${vehicleData.make} ${vehicleData.model} car dealers, car sales, sell car in Nairobi Kenya, buy car in Nairobi Kenya`;
     let image = vehicleData.images?.[0]?.image || "";
     if (image && !image.startsWith("http")) {
-        image = `https://kenautos.co.ke${image}`;
+        image = `https://api.kenautos.co.ke${image}`;
     }
 
     // Force HTTPS for api.kenautos.co.ke images
