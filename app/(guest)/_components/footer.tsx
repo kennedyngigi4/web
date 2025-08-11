@@ -19,10 +19,10 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-row space-x-3.5">
-            <a href="https://web.facebook.com/motorsvivake/" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
-            <a href="https://www.instagram.com/motorsvivake/" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+            <a href="https://www.facebook.com/kenautoske/" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+            <a href="https://www.instagram.com/kenautoshub/" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
             <a href="https://x.com/kenautos_ke" target="_blank" rel="noopener noreferrer"><FaXTwitter /></a>
-            <a href="https://www.tiktok.com/@motorsviva" target="_blank" rel="noopener noreferrer"><FaTiktok /></a>
+            <a href="https://www.tiktok.com/@kenautoshub" target="_blank" rel="noopener noreferrer"><FaTiktok /></a>
           </div>
         </div>
         <div className="pb-10">
