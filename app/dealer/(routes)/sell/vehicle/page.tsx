@@ -106,13 +106,13 @@ const SellCarPage = () => {
 
         const selectedFiles = Array.from(files);
 
-        const maxSizeInBytes = 2 * 1024 * 1024;
+        const maxSizeInBytes = 10 * 1024 * 1024;
         const validFiles: File[] = [];
         const errors: string[] = [];
 
         selectedFiles.forEach((img) => {
             if(img.size >= maxSizeInBytes){
-                errors.push(`${img.name} is too large. Max size is 2MB.`);
+                errors.push(`${img.name} is too large. Max size is 10MB.`);
             } else {
                 validFiles.push(img);
             }
