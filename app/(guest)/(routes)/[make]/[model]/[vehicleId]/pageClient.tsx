@@ -3,9 +3,7 @@
 import React, { useState } from 'react';
 
 import Breadcrumbs from '@/app/(guest)/_components/breadcrumb';
-import {
-    Carousel, CarouselContent, CarouselItem, CarouselNext,
-    CarouselPrevious, } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
