@@ -52,6 +52,8 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
                 return;
             }
 
+            console.log(makeId);
+
             const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/listings/models/${makeId}`);
             const data = await res.json();
             console.log(data)
