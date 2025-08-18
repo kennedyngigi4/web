@@ -50,6 +50,7 @@ const VehicleDetailsPage = () => {
     const [ newPreviewUrls, setNewPreviewUrls] = useState<string[]>([]);
     const [ makes, setMakes ] = useState([]);
     const [ models, setModels] = useState([]);
+    const [ uploading, setUploading ] = useState(false);
 
    
 
@@ -187,6 +188,8 @@ const VehicleDetailsPage = () => {
             throw new Error("You must be logged in");
         }
 
+        setUploading(true);
+
         if(newImages.length > 0){
             const formData = new FormData();
             formData.append("listing_id", vehicleData.listing_id)
@@ -198,10 +201,12 @@ const VehicleDetailsPage = () => {
             console.log(res)
             if(res?.status == 201){
                 toast.success("Images uploaded", { position: "top-center" });
-                // window.location.reload();
+                window.location.reload();
+                setUploading(false);
             } else {
                 toast.error("Something went wrong", { position: "top-center" });
-                // window.location.reload();
+                window.location.reload();
+                setUploading(false);
             }
         }
     }
@@ -216,7 +221,7 @@ const VehicleDetailsPage = () => {
 
         const formData = new FormData();
         formData.append("availability", value)
-        const res = await DealerApiService.patch(`dealers/vehicle/${vehicleData.listing_id}`, session?.accessToken, formData);
+        const res = await DealerApiService.patch(`dealers/vehicle/${vehicleData.slug}`, session?.accessToken, formData);
         if(res.ok){
             toast.success("Vehicle updated", { position: "top-center"})
             window.location.reload();
@@ -609,9 +614,9 @@ const VehicleDetailsPage = () => {
                                 />
                             </div>     
                             {newPreviewUrls.map((src, index) => (
-                                <div key={index} className="ml-3 mb-3 relative">
+                                <div key={index} className="ml-3 mb-3 relative w-20 h-20">
                                     
-                                    <Image src={src} alt="Preview" className="md:w-30 md:h-22 w-60 h-60 object-cover rounded-md" />
+                                    <Image src={src} alt="Preview" fill className="object-cover rounded-md" />
                                     <button
                                         onClick={() => handleRemoveNewImage(index)}
                                         className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
@@ -635,7 +640,7 @@ const VehicleDetailsPage = () => {
 
                             {newImages.length > 0 && (
                                 <div className="flex justify-center items-center w-full mx-auto">
-                                    <Button onClick={handleUploadNewImages} className="bg-orange-400 text-white cursor-pointer">Upload images</Button>
+                                    <Button onClick={handleUploadNewImages} disabled={uploading} className="bg-orange-400 text-white cursor-pointer">Upload images</Button>
                                 </div>
                             )}
                         </div>

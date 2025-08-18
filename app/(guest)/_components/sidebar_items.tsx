@@ -45,20 +45,21 @@ const dealerRoutes = [
         href: "/dealer",
     },
     {
-        label: "Sell Vehicle",
+        label: "Sell Now",
         href: "/dealer/sell",
     },
     {
-        label: "My Stock",
+        label: "My Vehicles",
         href: "/dealer/mycars",
     },
     {
-        label: "History",
-        href: "/dealer/mycars",
+        label: "Spare Parts",
+        href: "/dealer/spares",
     },
+    
     {
-        label: "Invest in Car Hire",
-        href: "/all_vehicles",
+        label: "Notifications",
+        href: "/dealer/notifications",
     },
     {
         label: "Profile",
