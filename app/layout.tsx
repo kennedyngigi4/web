@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kenautos Hub - Buy, Sell or Hire Luxury Cars in Kenya.",
     description: "Kenautos is Kenya's trusted online platform to buy, sell, or hire cars. Browse listings for new and used vehicles from individuals and dealers across the country.",
-    images: ["https://kenautos.co.ke/og-img.png"],
+    images: ["https://kenautos.co.ke/og-new.jpeg"],
   },
 };
 
@@ -56,7 +56,7 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* Google Analytics Scripts */}
-        {/* <Script
+        <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-9XNHEPWYRG"
         />
@@ -71,7 +71,7 @@ export default async function RootLayout({
               gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
             `,
           }}
-        /> */}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
