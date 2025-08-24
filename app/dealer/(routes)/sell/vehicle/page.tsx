@@ -248,13 +248,15 @@ const SellCarPage = () => {
             const res = await DealerApiService.images("dealers/images_upload", id, images);
             if(res.success){
                 toast.success(res.message, { position: "top-center" });
-                if (!packages?.can_upload){
-                    setShowMpesaDialog(true);
-                }
-                // setLoading(false);
+                // if (!packages?.can_upload){
+                //     setShowMpesaDialog(true);
+                // }
+                
+                setLoading(false);
                 
                 router.push("/dealer/mycars");
             } else {
+                setLoading(false);
                 toast.error("An error occurred.", { position: "top-center"});
             }
         } catch(e){

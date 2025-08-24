@@ -18,9 +18,20 @@ export const columns: ColumnDef<VehicleModel>[] = [
         header: "Vehicle Details",
         cell: ({row}) => {
             const imageOne = row?.original?.images[0]?.image;
+            const images = row?.original.images;
+            const slug = row?.original?.slug;
+
             return (
                 <div className="w-full rounded-lg h-35 relative overflow-hidden">
-                    <Image src={`${process.env.NEXT_PUBLIC_IMGURL}${imageOne}`} alt="Vehicle" fill className="object-cover" />
+                    {images.length > 0 ? ( 
+                        <Image src={`${process.env.NEXT_PUBLIC_IMGURL}${imageOne}`} alt="Vehicle" fill className="object-cover" />
+                    ) : (
+                        <div className="flex flex-col justify-center items-center w-full h-full">
+                            <p className="text-red-500">No Image</p>
+                            <Link href={`/dealer/${slug}`} className="text-sm">Click to Upload</Link>
+                        </div>
+                    )}
+                    
                 </div>
             );
         }
