@@ -52,7 +52,7 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
                 return;
             }
 
-            console.log(makeId);
+            
 
             const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/listings/models/${makeId}`);
             const data = await res.json();
@@ -93,15 +93,24 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
             });
 
             const data = await res.json();
-            setVehicles(data.results);
             setTotalCount(data.count);
             
+            // ✅ Append if page > 1
+            if (page === 1) {
+                setVehicles(data.results);
+            } else {
+                setVehicles((prev) => [...prev, ...data.results]);
+            }
+
             setLoading(false);
         };
 
         fetchVehicles();
     }, [vehicle_type, page, make, model, yom, usage, minPrice, maxPrice]);
 
+    useEffect(() => {
+        setPage(1);
+    }, [make, model, yom, usage, minPrice, maxPrice, vehicle_type]);
 
     const totalPages = Math.ceil(totalCount / 20);
 
