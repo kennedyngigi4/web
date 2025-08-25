@@ -184,10 +184,14 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
                         {vehicles?.map((vehicle: VehicleModel) => (
                             <VehicleCard key={vehicle?.listing_id} vehicle={vehicle} />
                         ))}
-                        <div className="flex flex-col items-center justify-center bg-orange-400 shadow rounded-2xl p-6 space-y-8">
-                            <h1 className="text-white text-3xl capitalize font-semibold text-center">Didn't Find Your Dream {vehicle_type}?</h1>
+                        <div className="flex flex-col items-center justify-center bg-orange-400 shadow rounded-2xl p-6 space-y-6 min-h-[300px]">
+                            <h1 className="text-white text-2xl lg:text-3xl font-semibold text-center">
+                                Didn’t Find Your Dream {vehicle_type}?
+                            </h1>
                             <Link href="/find-me-car">
-                                <Button className="cursor-pointer capitalize hover:bg-white hover:text-orange-400">Find Me a {vehicle_type}</Button>
+                                <Button className="cursor-pointer capitalize bg-white text-orange-500 hover:bg-orange-500 hover:text-white">
+                                    Find Me a {vehicle_type}
+                                </Button>
                             </Link>
                         </div>
                     </div>
@@ -196,38 +200,20 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
 
 
 
-
-
-            {totalPages > 1 && (
-                <div className="flex justify-center space-x-2 my-14">
+            {page < totalPages && (
+                <div className="flex justify-center my-10">
                     <Button
-                        disabled={page === 1}
-                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                        className="cursor-pointer btn-sm"
+                        onClick={() => setPage((prev) => prev + 1)}
+                        disabled={loading}
+                        className="cursor-pointer"
                     >
-                        Previous
-                    </Button>
-
-                    {[...Array(totalPages)].map((_, i) => (
-                        <Button
-                            key={i}
-                            variant={i + 1 === page ? "default" : "outline"}
-                            onClick={() => setPage(i + 1)}
-                            className="cursor-pointer btn-sm"
-                        >
-                            {i + 1}
-                        </Button>
-                    ))}
-
-                    <Button
-                        disabled={page === totalPages}
-                        onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-                        className="cursor-pointer btn-sm"
-                    >
-                        Next
+                        {loading ? "Loading..." : "Load More"}
                     </Button>
                 </div>
             )}
+
+
+            
 
         </section>
     )

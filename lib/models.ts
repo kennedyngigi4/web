@@ -36,6 +36,7 @@ export interface VehicleModel {
     expires_at: string;
     slug: string;
     clicks: number;
+    location?: string;
 }
 
 

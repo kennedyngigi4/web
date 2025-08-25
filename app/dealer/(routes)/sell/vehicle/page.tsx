@@ -20,6 +20,7 @@ import DealerApiService from '@/lib/dealer_apiservice';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import MpesaPaymentModal from '@/components/modals/mpesa_payment_modal';
+import LocationField from '../_components/location';
 
 
 const formSchema = z.object({
@@ -35,7 +36,8 @@ const formSchema = z.object({
     tradein: z.string().optional(),
     financing: z.string().optional(),
     usage: z.string().min(1, { message: "Usage is required" }),
-    description: z.string().min(20, { message: "Description should be at least 20 characters" })
+    description: z.string().min(20, { message: "Description should be at least 20 characters" }),
+    location: z.string().min(1, { message: "Location is required" })
 });
 
 
@@ -95,7 +97,8 @@ const SellCarPage = () => {
             tradein: "",
             financing: "",
             usage: "",
-            description: ""
+            description: "",
+            location: "",
         }
     });
 
@@ -205,6 +208,7 @@ const SellCarPage = () => {
         formData.append("description", values.description);
         formData.append("vehicle_type", selectedVehicle);
         formData.append("package_id", selectedPackage?.pid);
+        formData.append("location", values.location);
         // images.forEach((image) => {
         //     formData.append("images", image);
         // });
@@ -252,11 +256,11 @@ const SellCarPage = () => {
                 //     setShowMpesaDialog(true);
                 // }
                 
-                setLoading(false);
+                // setLoading(false);
                 
                 router.push("/dealer/mycars");
             } else {
-                setLoading(false);
+                // setLoading(false);
                 toast.error("An error occurred.", { position: "top-center"});
             }
         } catch(e){
@@ -663,6 +667,27 @@ const SellCarPage = () => {
                                             </FormItem>
                                         )}
                                     />
+
+                                    <FormField
+                                        name="location"
+                                        control={form.control}
+                                        render={({field}) => (
+                                            <FormItem>
+                                                <FormLabel>Location</FormLabel>
+                                                <FormControl>
+                                                    <LocationField
+                                                        onSelect={(addr) => {
+                                                            field.onChange(addr); // set address in form
+                                                            
+                                                        }}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                   
                                 </div>
                                 <div className="grid md:grid-cols-1 grid-cols-1 gap-3 space-y-4">
                                     <FormField

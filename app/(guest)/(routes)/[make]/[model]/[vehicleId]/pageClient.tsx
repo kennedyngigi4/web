@@ -7,7 +7,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { BadgeCheck, ChevronDown, ChevronUp } from 'lucide-react';
+import { BadgeCheck, ChevronDown, ChevronUp, MapPin } from 'lucide-react';
 import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa"
 import { FaPhone } from 'react-icons/fa6';
 import ViewingModal from './_components/viewing_modal';
@@ -73,6 +73,8 @@ const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
                                             }
                                             
                                             <h1 className="text-lg font-bold  uppercase">{vehicleData?.year_of_make} {vehicleData?.make} {vehicleData?.model}</h1>
+                                            
+                                            
                                         </div>
                                         <div className="md:col-span-4">
                                             <h1 className="font-semibold text-sm pb-1">Share on:</h1>
@@ -85,6 +87,9 @@ const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
                                         </div>
                                     </div>
                                     
+                                    {vehicleData?.location && (
+                                        <p className='flex flex-row text-sm items-center'><MapPin size={15} className="text-orange-500 me-1" /> {vehicleData?.location}</p>
+                                    )}
 
                                     <div className="grid grid-cols-3 md:grid-cols-6 gap-4 py-2">
                                         
