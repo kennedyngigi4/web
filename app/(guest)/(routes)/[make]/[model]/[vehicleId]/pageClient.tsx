@@ -88,7 +88,7 @@ const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
                                     </div>
                                     
                                     {vehicleData?.location && (
-                                        <p className='flex flex-row text-sm items-center'><MapPin size={15} className="text-orange-500 me-1" /> {vehicleData?.location}</p>
+                                        <p className='flex flex-row text-sm items-center max-md:pt-2'><MapPin size={15} className="text-orange-500 me-1" /> {vehicleData?.location}</p>
                                     )}
 
                                     <div className="grid grid-cols-3 md:grid-cols-6 gap-4 py-2">

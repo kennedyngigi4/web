@@ -42,7 +42,7 @@ const guestRoutes = [
   },
   {
     label: "Car Hire",
-    href: "/luxury-car-hire"
+    href: "/car-hire"
   },
   {
     label: "FAQ",
