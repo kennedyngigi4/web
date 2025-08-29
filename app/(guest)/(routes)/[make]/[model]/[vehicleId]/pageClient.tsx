@@ -157,7 +157,9 @@ const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
                                                     </div>
                                                     <div className="space-y-1">
                                                         <h1 className="font-bold text-lg uppercase">{vehicleData?.dealer?.name}</h1>
-                                                        <p className="flex items-center justify-start text-xs text-green-600"><BadgeCheck className="w-4 h-4" /> Verified</p>
+                                                        {vehicleData?.dealer?.is_verified && (
+                                                            <p className="flex items-center justify-start text-xs text-green-600"><BadgeCheck className="w-4 h-4" /> Verified</p>
+                                                        )}
                                                         <p className="text-xs">{vehicleData?.dealer?.joined_since}</p>
                                                     </div>
                                                 </div>
