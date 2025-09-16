@@ -17,6 +17,7 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
     const [page, setPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
 
 
     // more filter states
@@ -69,13 +70,18 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
     const years = Array.from({ length: currentYear - startYear + 1 }, (_, i) => String(currentYear - i));
 
 
-
-    useEffect(() => {
-        const fetchVehicles = async() => {
+    const fetchVehicles = async(currentPage: number, isLoadMore = false) => {
+        if (isLoadMore) {
+            setLoadingMore(true);
+        } else {
             setLoading(true);
+        }
+
+
+        try{
             const query = new URLSearchParams({
                 vehicle_type,
-                page: page.toString(),
+                page: currentPage.toString(),
                 page_size: '23',
             });
 
@@ -94,25 +100,43 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
 
             const data = await res.json();
             setTotalCount(data.count);
-            
+
             // ✅ Append if page > 1
-            if (page === 1) {
+            if (currentPage === 1) {
                 setVehicles(data.results);
             } else {
                 setVehicles((prev) => [...prev, ...data.results]);
             }
 
-            setLoading(false);
-        };
+            
+        } finally{
+            if(isLoadMore){
+                setLoadingMore(false);
+            } else {
+                setLoading(false);
+            }
+        }
+    };
 
-        fetchVehicles();
-    }, [vehicle_type, page, make, model, yom, usage, minPrice, maxPrice]);
+    useEffect(() => {
+        setPage(1);
+        fetchVehicles(1);
+    }, [vehicle_type, make, model, yom, usage, minPrice, maxPrice]);
 
     useEffect(() => {
         setPage(1);
     }, [make, model, yom, usage, minPrice, maxPrice, vehicle_type]);
 
     const totalPages = Math.ceil(totalCount / 20);
+
+
+    const handleLoadMore = async() => {
+        if(page<totalPages){
+            const nextPage = page + 1;
+            setPage(nextPage);
+            fetchVehicles(nextPage, true)
+        }
+    }
 
     return (
         <section className="min-h-screen py-4">
@@ -204,22 +228,24 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
                             </Link>
                         </div>
                     </div>
+                    
+                    {page < totalPages && (
+                        <div className="flex justify-center my-10">
+                            <Button
+                                onClick={handleLoadMore}
+                                disabled={loadingMore}
+                                className="cursor-pointer"
+                            >
+                                {loadingMore ? "Loading..." : "Load More"}
+                            </Button>
+                        </div>
+                    )}
                 </>
             )}
 
 
 
-            {page < totalPages && (
-                <div className="flex justify-center my-10">
-                    <Button
-                        onClick={() => setPage((prev) => prev + 1)}
-                        disabled={loading}
-                        className="cursor-pointer"
-                    >
-                        {loading ? "Loading..." : "Load More"}
-                    </Button>
-                </div>
-            )}
+            
 
 
             

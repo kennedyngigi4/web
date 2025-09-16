@@ -33,7 +33,7 @@ const Footer = () => {
                 <Link href="about-us">About Us</Link>
               </li>
               <li>
-                <Link href="/signin">Sell Your Vehicle</Link>
+                <Link href="/car-blogs-news">News & Blogs</Link>
               </li>
               <li>
                 <Link href="/partnership-relations">Investor / Partnership Relations</Link>

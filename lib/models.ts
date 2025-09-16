@@ -37,6 +37,8 @@ export interface VehicleModel {
     slug: string;
     clicks: number;
     location?: string;
+    display_type?: string;
+    auctions: any;
 }
 
 
@@ -80,6 +82,19 @@ export interface FAQItem {
     id: number;
     question: string;
     answer: string;
+}
+
+
+export interface BlogModel {
+    id: string;
+    title: string; 
+    slug: string; 
+    category: string; 
+    image: string; 
+    exerpt: string; 
+    content: string; 
+    uploaded_by: string; 
+    uploaded_at: string;
 }
 
 

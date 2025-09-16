@@ -11,11 +11,19 @@ interface VehicleCardProps{
     vehicle: VehicleModel
 }
 
-const VehicleCard = ({ vehicle }: VehicleCardProps) => {
+const VehicleAuctionCard = ({ vehicle }: VehicleCardProps) => {
   return (
     
     <Card className="p-3 shadow-sm hover:shadow-lg bg-background relative">
-        
+        <div className="absolute top-0 left-0 z-30">
+            <div className='bg-orange-400 py-1 px-3 rounded-r-lg flex items-center'>
+                <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                <p className='capitalize text-xs font-semibold text-white ps-1'>{vehicle?.auctions?.status} Auction</p>
+            </div>
+        </div>
         <CardContent className="p-0 ">
             {vehicle?.price_dropped && (
                 <div className="absolute top-0 right-0 bg-red-600 z-10 p-1 rounded">
@@ -58,12 +66,12 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
                             <h1 className="text-orange-500 font-normal">KSh. {parseInt(vehicle?.price).toLocaleString()}</h1>
                         </>)
                     }
-                    <div className='md:flex md:flex-row flex-wrap justify-between hidden pt-2'>
-                        {/* <p className="text-xs flex items-center justify-center bg-slate-200 py-1 px-2 rounded-2xl">{vehicle.drive}</p> */}
+                    {/* <div className='md:flex md:flex-row flex-wrap justify-between hidden pt-2'>
+                        
                         <p className="text-xs flex items-center justify-center bg-slate-100 py-1 px-2 rounded-2xl">{vehicle.fuel}</p>
                         <p className="text-xs flex items-center justify-center bg-slate-100 py-1 px-2 rounded-2xl">{vehicle.engine_capacity}cc</p>
                         <p className="text-xs md:flex items-center hidden justify-center bg-slate-100 py-1 px-2 rounded-2xl">{vehicle.transmission}</p>
-                    </div>
+                    </div> */}
                 </div>
             </Link>
         </CardContent>
@@ -71,4 +79,4 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
   )
 }
 
-export default VehicleCard
+export default VehicleAuctionCard

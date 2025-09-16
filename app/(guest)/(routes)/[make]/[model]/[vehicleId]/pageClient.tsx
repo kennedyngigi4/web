@@ -4,21 +4,22 @@ import React, { useState } from 'react';
 
 import Breadcrumbs from '@/app/(guest)/_components/breadcrumb';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, } from '@/components/ui/carousel';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { BadgeCheck, ChevronDown, ChevronUp, MapPin } from 'lucide-react';
+import { BadgeCheck, ChevronDown, ChevronUp, Gavel, MapPin, TagIcon } from 'lucide-react';
 import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa"
 import { FaPhone } from 'react-icons/fa6';
 import ViewingModal from './_components/viewing_modal';
 import ReportAbuseModal from './_components/report_abuse_modal';
 import Link from 'next/link';
 import { VehicleModel } from '@/lib/models';
+import CountDown from '@/app/(guest)/_components/count-down';
+import BidModal from './_components/bid-modal';
 
 
 type VehiclePageClientProps = {
     vehicleData: VehicleModel;
-    
 }
 
 
@@ -62,15 +63,25 @@ const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
                                 <div className="pt-4">
                                     <div className="grid grid-cols-1 md:grid-cols-12 space-y-4">
                                         <div className="md:col-span-8">
-                                            {vehicleData?.price_dropped ? 
-                                                (<>
-                                                    <h1 className="text-orange-500 font-extrabold text-xl">KSh. {parseInt(vehicleData?.price_drop).toLocaleString()} <span className="text-red-600 text-sm line-through font-normal">KSh. {parseInt(vehicleData?.price).toLocaleString()}</span></h1>
-                                                </>)
-                                                :
-                                                (<>
-                                                    <h1 className="text-orange-500 font-extrabold text-xl">KSh. {parseInt(vehicleData?.price).toLocaleString()}</h1>
-                                                </>)
-                                            }
+                                            {vehicleData?.display_type != "auction" ? (
+                                                <>
+                                                    {vehicleData?.price_dropped ?
+                                                        (<>
+                                                            <h1 className="text-orange-500 font-extrabold text-xl">KSh. {parseInt(vehicleData?.price_drop).toLocaleString()} <span className="text-red-600 text-sm line-through font-normal">KSh. {parseInt(vehicleData?.price).toLocaleString()}</span></h1>
+                                                        </>)
+                                                        :
+                                                        (<>
+                                                            <h1 className="text-orange-500 font-extrabold text-xl">KSh. {parseInt(vehicleData?.price).toLocaleString()}</h1>
+                                                        </>)
+                                                    }
+                                                </>
+                                            ) : (
+                                                <div className='flex items-start'>
+                                                    <h1 className="text-orange-500 font-extrabold text-xl">KES {parseInt(vehicleData?.auctions?.current_price).toLocaleString()}</h1>
+                                                    <p className='text-slate-500 text-xs'>Current Bid</p>
+                                                </div>
+                                            )}
+                                            
                                             
                                             <h1 className="text-lg font-bold  uppercase">{vehicleData?.year_of_make} {vehicleData?.make} {vehicleData?.model}</h1>
                                             
@@ -86,6 +97,29 @@ const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    {vehicleData?.display_type === "auction" && (
+                                        <div className='bg-orange-50 border border-orange-400 p-8 my-5 rounded-2xl'>
+                                            <div className='grid md:grid-cols-2 grid-cols-1 gap-8'>
+                                                <div className=''>
+                                                    {vehicleData?.auctions?.status === "upcoming" && (
+                                                        <div className='py-1'>Auction starts in: <CountDown endTime={vehicleData?.auctions?.countdown_to} /></div>
+                                                    )}
+                                                    {vehicleData?.auctions?.status === "live" && (
+                                                        <div className='py-1'>Auction ends in: <CountDown endTime={vehicleData?.auctions?.countdown_to} /></div>
+                                                    )}
+                                                    {vehicleData?.auctions?.status === "ended" && "Auction ended"}
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <p className='text-slate-500'>Current Bid:</p>
+                                                        <h1 className="font-semibold text-xl">KES {parseInt(vehicleData?.auctions?.current_price).toLocaleString()}</h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                     
                                     {vehicleData?.location && (
                                         <p className='flex flex-row text-sm items-center max-md:pt-2'><MapPin size={15} className="text-orange-500 me-1" /> {vehicleData?.location}</p>
@@ -167,17 +201,43 @@ const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
                                         </CardContent>
                                     </Card>
                                 </div>
+                                
+                                {vehicleData?.display_type != "auction" ? (
+                                    <div className="grid md:grid-cols-2 grid-cols-2 w-full gap-3 mb-5 space-y-3">
+                                        <div className="">
+                                            <a href={`https://wa.me/${vehicleData?.dealer?.phone}?text=Hello ${vehicleData?.dealer?.name}, I am interested in ${vehicleData?.year_of_make} ${vehicleData?.make} ${vehicleData?.model} posted on Kenautos Hub ${carURL}`} target="_blank" rel="noopener noreferrer">
+                                            <Button className="bg-green-500 font-semibold w-full rounded-none cursor-pointer"><FaWhatsapp /> Whatsapp Seller</Button>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href={`tel:${vehicleData?.dealer?.phone}`}><Button className="bg-orange-500 font-semibold w-full rounded-none cursor-pointer"><FaPhone /> Call Seller</Button></a>
+                                        </div>
+                                    </div>
+                                ): (
+                                    <Card className='mb-8'>
+                                        <CardContent>
+                                            <CardTitle className='text-xl text-orange-500 font-semibold flex'><Gavel className='pe-2' /> Place Your Bid</CardTitle>
+                                            <div>
+                                                {vehicleData?.auctions?.status === "upcoming" && (
+                                                    <div className='py-5'>Auction starts in: <CountDown endTime={vehicleData?.auctions?.countdown_to} /></div>
+                                                )}
+                                                {vehicleData?.auctions?.status === "live" && (
+                                                    <div className='py-5'>Auction ends in: <CountDown endTime={vehicleData?.auctions?.countdown_to} /></div>
+                                                )}
+                                                {vehicleData?.auctions?.status === "ended" && "Auction ended"}
 
-                                <div className="grid md:grid-cols-2 grid-cols-2 w-full gap-3 mb-5 space-y-3">
-                                    <div className="">
-                                        <a href={`https://wa.me/${vehicleData?.dealer?.phone}?text=Hello ${vehicleData?.dealer?.name}, I am interested in ${vehicleData?.year_of_make} ${vehicleData?.make} ${vehicleData?.model} posted on Kenautos Hub ${carURL}`} target="_blank" rel="noopener noreferrer">
-                                        <Button className="bg-green-500 font-semibold w-full rounded-none cursor-pointer"><FaWhatsapp /> Whatsapp Seller</Button>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href={`tel:${vehicleData?.dealer?.phone}`}><Button className="bg-orange-500 font-semibold w-full rounded-none cursor-pointer"><FaPhone /> Call Seller</Button></a>
-                                    </div>
-                                </div>
+                                                
+                                            </div>
+                                            <div><p className='text-slate-500'>Current Bid:</p>
+                                                <h1 className="font-semibold text-xl">KES {parseInt(vehicleData?.auctions?.current_price).toLocaleString()}</h1>
+                                            </div>
+
+                                            <div className='mt-4'>
+                                                <BidModal vehicleData={vehicleData} />  
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                )}
 
                                 <Card className="w-full mb-8 bg-background">
                                     <CardContent>

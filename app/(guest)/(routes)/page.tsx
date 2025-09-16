@@ -3,17 +3,19 @@
 
 import React, { useEffect, useState } from 'react';
 import ApiServices from '@/lib/apiservice';
-import { VehicleModel } from '@/lib/models';
+import { BlogModel, VehicleModel } from '@/lib/models';
 import VehicleCard from '../_components/vehicle_card';
 import LoadingModal from '@/components/modals/loading_modal';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import BlogCard from '../_components/blog-card';
+import VehicleAuctionCard from '../_components/vehicle_auction_card';
 
 const IndexPage = () => {
   const [ luxuries, setLuxuries] = useState<VehicleModel[]>([]);
   const [ cars, setCars] = useState<VehicleModel[]>([]);
-  const [ bikes, setBikes] = useState<VehicleModel[]>([]);
-  const [ trucks, setTrucks] = useState<VehicleModel[]>([]);
+  const [ auctions, setAuctions] = useState<VehicleModel[]>([]);
+  const [ blogs, setBlogs] = useState<BlogModel[]>([]);
   const [ loading, setLoading ] = useState(false);
 
   useEffect(() => {
@@ -24,9 +26,8 @@ const IndexPage = () => {
         const data = await ApiServices.get("listings/home_view/");
         setLuxuries(data.luxuries || []);
         setCars(data.cars || []);
-        setBikes(data.bikes || []);
-        setTrucks(data.trucks || []);
-
+        setAuctions(data.auctions || []);
+        setBlogs(data.blogs || []);
       } catch(e){
         console.error('Error fetching vehicles:', e);
       } finally {
@@ -64,7 +65,7 @@ const IndexPage = () => {
                   Browse Spares
                 </Button>
               </Link>
-              <Link href="/luxury-car-hire">
+              <Link href="/car-hire">
                 <Button className="rounded-full px-6 py-2 bg-orange-400 hover:bg-orange-400 text-white shadow-md cursor-pointer">
                   Hire a Car
                 </Button>
@@ -87,7 +88,7 @@ const IndexPage = () => {
         : (<>
           {luxuries.length > 0 && (
             <section>
-              <h1 className="text-orange-500 text-xl font-bold pb-3">Top Luxury Cars in Kenya</h1>
+              <h1 className="text-orange-500 text-xl font-bold pb-3" title="Luxury and Premium Cars in Kenya">Luxury & Premium Cars</h1>
               <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6">
                 {luxuries.map((vehicle: VehicleModel) => (
                   <div key={vehicle.listing_id} className="mb-8">
@@ -136,13 +137,13 @@ const IndexPage = () => {
           </>
         )
         : (<>
-          {bikes.length > 0 && (
+          {auctions.length > 0 && (
             <section>
-              <h1 className="text-orange-500 text-xl font-bold pb-3">Latest Bikes</h1>
+              <h1 className="text-orange-500 text-xl font-bold pb-3">Auctions</h1>
               <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 mb-4">
-                {bikes.map((vehicle: VehicleModel) => (
+                {auctions.map((vehicle: VehicleModel) => (
                   <div key={vehicle.listing_id} className="">
-                    <VehicleCard vehicle={vehicle} />
+                    <VehicleAuctionCard vehicle={vehicle} />
                   </div>
                 ))}
               </div>
@@ -160,13 +161,16 @@ const IndexPage = () => {
           </>
         )
         : (<>
-          {trucks.length > 0 && (
+          {blogs.length > 0 && (
             <section>
-              <h1 className="text-orange-500 text-xl font-semibold pb-3">Latest Trucks</h1>
-              <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 mb-4">
-                {trucks.map((vehicle: VehicleModel) => (
-                  <div key={vehicle.listing_id} className="">
-                    <VehicleCard vehicle={vehicle} />
+              <div className='flex md:flex-row flex-col md:justify-between md:items-baseline mt-8'>
+                <h1 className="text-orange-500 text-xl font-semibold pb-3">Latest News & Blogs</h1>
+                <Link href="/car-blogs-news">Find More</Link>
+              </div>
+              <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-6 mb-4">
+                {blogs.map((blog: BlogModel) => (
+                  <div key={blog.id} className="">
+                    <BlogCard blog={blog} />
                   </div>
                 ))}
               </div>

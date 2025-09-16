@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     const sitemaps = [
-        "https://kenautos.co.ke/sitemap-static.xml",
         "https://kenautos.co.ke/sitemap-vehicles.xml",
+        "https://kenautos.co.ke/sitemap-static.xml",
     ];
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>

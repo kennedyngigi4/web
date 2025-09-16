@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: '*',
             allow: '/',
-            disallow: '/dealer/',
+            disallow: [ '/dealer/', '/giftman/' ],
         },
         sitemap: 'https://kenautos.co.ke/sitemap.xml'
     }
