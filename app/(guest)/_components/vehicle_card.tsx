@@ -15,8 +15,19 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
   return (
     
     <Card className="p-3 shadow-sm hover:shadow-lg bg-background relative">
-        
+        {vehicle?.display_type === "auction" && (
+            <div className="absolute top-0 left-0 z-30">
+                <div className='bg-orange-400 py-1 px-3 rounded-r-lg flex items-center'>
+                    <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                    </span>
+                    <p className='capitalize text-xs font-semibold text-white ps-1'>{vehicle?.auctions?.status} Auction</p>
+                </div>
+            </div>
+        )}
         <CardContent className="p-0 ">
+            
             {vehicle?.price_dropped && (
                 <div className="absolute top-0 right-0 bg-red-600 z-10 p-1 rounded">
                     <p className="text-white text-xs flex"><ArrowDown size={15  } /> Price Dropped</p>
