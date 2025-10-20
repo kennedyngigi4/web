@@ -42,7 +42,7 @@ const PageClient = ({ blog }: BlogProps) => {
                         <p>
                             Editor:{" "}
                             <span className="text-orange-500 font-medium">
-                                {blog.uploaded_by || "Kenautos Team"}
+                                Mike
                             </span>
                         </p>
                         <p>
