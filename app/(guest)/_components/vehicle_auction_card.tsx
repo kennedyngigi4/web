@@ -36,7 +36,7 @@ const VehicleAuctionCard = ({ vehicle }: VehicleCardProps) => {
                         { String(vehicle?.images[0].image).startsWith("http") ? (
                             <Image
                                 src={vehicle?.images[0].image}
-                                alt={`${vehicle?.year_of_make} ${vehicle?.make} ${vehicle?.model} for sale at Kenautos Hub Nairobi, Kenya. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
+                                  alt={`${vehicle?.year_of_make} ${vehicle?.make} ${vehicle?.model} for sale at Kenautos Hub Nairobi, Kenya. Car Auctions in Kenya Buy Used Cars Online. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
                                 fill
                                 className="rounded-lg object-cover"
                                 sizes="(max-width: 640px) 100vw, 400px"
@@ -44,7 +44,7 @@ const VehicleAuctionCard = ({ vehicle }: VehicleCardProps) => {
                         ) : (
                             <Image
                                 src={`${process.env.NEXT_PUBLIC_IMGURL}${vehicle?.images[0].image}`}
-                                alt={`${vehicle?.year_of_make} ${vehicle?.make} ${vehicle?.model} for sale at Kenautos Hub Nairobi, Kenya. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
+                                      alt={`${vehicle?.year_of_make} ${vehicle?.make} ${vehicle?.model} for sale at Kenautos Hub Nairobi, Kenya. Car Auctions in Kenya Buy Used Cars Online. Buy, Sell and Trade your car in Kenya. Car dealers in kenya. Leading trusted online car marketplace in Kenya.`}
                                 fill
                                 className="rounded-lg object-cover"
                                 sizes="(max-width: 640px) 100vw, 400px"
@@ -66,12 +66,7 @@ const VehicleAuctionCard = ({ vehicle }: VehicleCardProps) => {
                             <h1 className="text-orange-500 font-normal">KSh. {parseInt(vehicle?.price).toLocaleString()}</h1>
                         </>)
                     }
-                    {/* <div className='md:flex md:flex-row flex-wrap justify-between hidden pt-2'>
-                        
-                        <p className="text-xs flex items-center justify-center bg-slate-100 py-1 px-2 rounded-2xl">{vehicle.fuel}</p>
-                        <p className="text-xs flex items-center justify-center bg-slate-100 py-1 px-2 rounded-2xl">{vehicle.engine_capacity}cc</p>
-                        <p className="text-xs md:flex items-center hidden justify-center bg-slate-100 py-1 px-2 rounded-2xl">{vehicle.transmission}</p>
-                    </div> */}
+                    
                 </div>
             </Link>
         </CardContent>

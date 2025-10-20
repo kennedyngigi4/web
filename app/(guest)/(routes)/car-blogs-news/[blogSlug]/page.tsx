@@ -25,7 +25,7 @@ const BlogSlug = ({ params }: { params: Promise<{ blogSlug: string }> }) => {
     return (
         <section className="py-8 min-h-screen w-full">
             <article className="prose max-w-none">
-            <div className="w-[70%] mx-auto">
+            <div className="md:w-[70%] mx-auto">
                 <div className="relative w-full h-[400px]">
                     {blog.image ? (
                         <Image
@@ -36,7 +36,7 @@ const BlogSlug = ({ params }: { params: Promise<{ blogSlug: string }> }) => {
                         />
                     ) : (
                         <Image
-                            src="/placeholder.png" // put a placeholder in /public
+                            src="/placeholder.png" 
                             alt="Placeholder"
                             fill
                             className="object-cover"

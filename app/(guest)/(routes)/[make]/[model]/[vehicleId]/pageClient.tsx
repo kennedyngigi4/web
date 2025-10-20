@@ -23,6 +23,7 @@ type VehiclePageClientProps = {
 }
 
 
+
 const VehiclePageClient = ({ vehicleData }: VehiclePageClientProps) => {
     const decodedMake = decodeURIComponent(vehicleData?.make as string)
     const decodedModel = decodeURIComponent(vehicleData?.model as string)

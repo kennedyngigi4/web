@@ -38,7 +38,7 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
         async function loadMakes(){
             const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/listings/makes/${vehicle_type}`);
             const data = await res.json();
-            console.log(data)
+            
             setMakes(data);
         }   
         loadMakes();
@@ -207,7 +207,7 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
             </div>
 
             <div className='py-2'>
-                <p className='font-semibold capitalize'>{vehicles?.length} {vehicle_type}s</p>
+                <p className='font-semibold capitalize' title={`${vehicle_type}s in Kenya`}>{vehicle_type}s in Kenya</p>
             </div>
             {loading ? (
                 <LoadingModal />

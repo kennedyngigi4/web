@@ -139,7 +139,7 @@ const IndexPage = () => {
         : (<>
           {auctions.length > 0 && (
             <section>
-              <h1 className="text-orange-500 text-xl font-bold pb-3">Auctions</h1>
+              <h1 className="text-orange-500 text-lg font-bold pb-3">Car Auctions in Kenya</h1>
               <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 mb-4">
                 {auctions.map((vehicle: VehicleModel) => (
                   <div key={vehicle.listing_id} className="">

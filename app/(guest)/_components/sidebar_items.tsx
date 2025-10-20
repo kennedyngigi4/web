@@ -22,6 +22,10 @@ const guestRoutes = [
         href: "/trucks",
     },
     {
+        label: "Auctions",
+        href: "/auctions"
+    },
+    {
         label: "Spare Parts",
         href: "/spare-parts",
     },
@@ -33,10 +37,7 @@ const guestRoutes = [
         label: "Car Hire",
         href: "/car-hire"
     },
-    {
-        label: "FAQ",
-        href: "/frequently-asked-questions"
-      }
+    
 ];
 
 const dealerRoutes = [

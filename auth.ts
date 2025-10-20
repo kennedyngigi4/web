@@ -48,9 +48,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     ],
 
     session: {
-        strategy: "jwt",
-        maxAge: 365 * 24 * 60 * 60,
-        updateAge: 30 * 24 * 60 * 60,
+        strategy: "jwt", 
+        maxAge: 365 * 24 * 60 * 60, 
+        updateAge: 5 * 60,
     },
 
     jwt: {
@@ -60,16 +60,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     callbacks: {
         async jwt({ token, user, account }) {
             if (account && user) {
+                if(!user?.access || !user!.refresh){
+                    throw new Error("Missing tokens for login");
+                }
                 token.accessToken = user?.access;
                 token.refreshToken = user?.refresh;
                 token.id = user?.id;
-                token.name = user?.name ?? undefined;
+                token.name = user?.name;
                 token.expiresAt = getExpiry(user?.access);
                 return token;
             }
 
 
-            if(Date.now() + 60 * 1000 < (token.expiresAt as number)){
+            if(Date.now() < (token.expiresAt as number) - 60 * 1000){
                 return token;
             }
 
@@ -86,12 +89,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 const refreshed = await res.json();
 
                 token.accessToken = refreshed.access;
-                token.refreshToken = refreshed.refresh ?? token.refreshToken;
                 token.expiresAt = getExpiry(refreshed.access);
+                if(refreshed.refresh){
+                    token.refreshToken = refreshed.refresh;
+                }
+                
+                
                 return token;
             } catch(e) {
-                
-                return { ...token, error: "RefreshAccessTokenError" };
+                console.error("Token refresh failed:", e);
+                return { ...token, error: "RefreshAccessTokenError", accessToken: null };
             }
         },
         async session({ session, token }) {

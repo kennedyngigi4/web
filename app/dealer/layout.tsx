@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../(guest)/_components/navbar'
 import Footer from '../(guest)/_components/footer'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -51,12 +51,16 @@ const DealerLayout = ({
   useEffect(() => {
     if (status === "loading" ) return;
 
-    if (status === "unauthenticated") {
-      router.push("/signin");
-    } else {
+    if (status === "unauthenticated" || session?.error === "RefreshAccessTokenError") {
+      signOut({ callbackUrl: "/signin"});
+      setIsReady(false);
+      return;
+    } 
+
+    if(status === "authenticated" && session?.accessToken){
       setIsReady(true);
     }
-  }, [status, router]);
+  }, [status, session, router]);
 
   if(!isReady){
     return <div className="flex w-full h-screen justify-center items-center">
