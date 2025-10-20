@@ -1,64 +1,52 @@
-"use client";
+// app/blog/[blogSlug]/page.tsx
+import BlogSlug from "./pageClient"
+import ApiServices from "@/lib/apiservice"
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import ApiServices from "@/lib/apiservice";
-import LoadingModal from "@/components/modals/loading_modal";
+export async function generateMetadata({ params }: { params: { blogSlug: string } }) {
+    try {
+        const resp = await ApiServices.get(`marketing/blog/${params.blogSlug}`)
 
+        // Remove HTML from content for description fallback
+        const plainText = resp.content
+            ? resp.content.replace(/<[^>]+>/g, "").slice(0, 160)
+            : "Explore auto insights, car listings, and vehicle ownership tips on Kenautos."
 
-const BlogSlug = ({ params }: { params: Promise<{ blogSlug: string }> }) => {
-    const { blogSlug } = React.use(params);
-    const [blog, setBlog] = useState<any>(null);
+        const keywords = [
+            "Kenautos",
+            "cars for sale in Kenya",
+            "buy cars online Kenya",
+            "Kenya auto market",
+            "car reviews",
+            resp.title,
+        ].join(", ")
 
-    useEffect(() => {
-        const fetchBlog = async () => {
-            const resp = await ApiServices.get(`marketing/blog/${blogSlug}`);
-            setBlog(resp);
-        };
-        fetchBlog();
-    }, [blogSlug]);
-
-    if (!blog) {
-        return <LoadingModal />;
+        return {
+            title: `${resp.title} | Kenautos Blog`,
+            description: resp.exerpt || plainText,
+            keywords,
+            openGraph: {
+                title: resp.title,
+                description: resp.exerpt || plainText,
+                images: [{ url: resp.image || "/placeholder.png" }],
+                type: "article",
+            },
+            twitter: {
+                card: "summary_large_image",
+                title: resp.title,
+                description: resp.exerpt || plainText,
+                images: [resp.image || "/placeholder.png"],
+            },
+        }
+    } catch (error) {
+        return {
+            title: "Kenautos Blog",
+            description:
+                "Discover car listings, automotive insights, and motoring trends in Kenya with Kenautos.",
+        }
     }
+}
 
-    return (
-        <section className="py-8 min-h-screen w-full">
-            <article className="prose max-w-none">
-            <div className="md:w-[70%] mx-auto">
-                <div className="relative w-full h-[400px]">
-                    {blog.image ? (
-                        <Image
-                            src={blog.image}
-                            alt={blog.title}
-                            fill
-                            className="object-contain"
-                        />
-                    ) : (
-                        <Image
-                            src="/placeholder.png" 
-                            alt="Placeholder"
-                            fill
-                            className="object-cover"
-                        />
-                    )}
-                </div>
-                
-                <div>
-                    <h1 className="text-3xl font-bold mt-4 text-slate-700">{blog.title}</h1>
-                    <div className="flex justify-items-start space-x-50 py-5">
-                        <p className="text-slate-500 text-sm">Editor <span className="text-orange-500">Mike</span></p>
-                        <p className="text-slate-500 text-xs">{new Date(blog.uploaded_at).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric"})}</p>
-                    </div>
-
-                    <div className="text-slate-600" dangerouslySetInnerHTML={{ __html: blog.content}}>
-                        
-                    </div>
-                </div>
-            </div>
-            </article>
-        </section>
-    );
-};
-
-export default BlogSlug;
+// Default export (render the client component)
+export default function BlogDetailsPage({ params }: { params: { blogSlug: string } }) {
+    return <BlogSlug params={params} />
+}
