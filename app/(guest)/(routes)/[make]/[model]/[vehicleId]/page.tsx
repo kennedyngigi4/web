@@ -30,8 +30,8 @@ export async function generateMetadata({ params }: VehicleIdPageProps): Promise<
         vehicleData.images?.[0]?.image ||
         "";
 
-    if (image && !image.startsWith("http")) {
-        image = `${image}`;
+    if (image && image.startsWith("http://")) {
+        image = image.replace("http://", "https://");
     }
     image = image.replace("http://api.kenautos.co.ke", "https://api.kenautos.co.ke");
 
