@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import VehicleCard from './vehicle_card';
 import LoadingModal from '@/components/modals/loading_modal';
-import { VehicleModel } from '@/lib/models';
+import { VehicleListModel, VehicleModel } from '@/lib/models';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -13,12 +13,13 @@ interface VehicleListProps {
 }
 
 const VehicleList = ({ vehicle_type }: VehicleListProps) => {
-    const [vehicles, setVehicles] = useState<VehicleModel[]>([]);
+    const [vehicles, setVehicles] = useState<VehicleListModel[]>([]);
     const [page, setPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [loadingMore, setLoadingMore] = useState(false);
 
+    const [nextCursor, setNextCursor] = useState<string | null>(null);
 
     // more filter states
     const [makes, setMakes] = useState<{ id: number; name: string }[]>([]);
@@ -70,20 +71,18 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
     const years = Array.from({ length: currentYear - startYear + 1 }, (_, i) => String(currentYear - i));
 
 
-    const fetchVehicles = async(currentPage: number, isLoadMore = false) => {
-        if (isLoadMore) {
-            setLoadingMore(true);
-        } else {
-            setLoading(true);
-        }
+    const fetchVehicles = async(isLoadMore = false) => {
+        if (isLoadMore && !nextCursor) return;
+
+        if (isLoadMore) setLoadingMore(true);
+        else setLoading(true);
 
 
         try{
-            const query = new URLSearchParams({
-                vehicle_type,
-                page: currentPage.toString(),
-                page_size: '23',
-            });
+            const query = new URLSearchParams();
+            query.append("vehicle_type", vehicle_type);
+            query.append("page_size", "23");
+
 
 
             if (make && make !== "all") query.append("make", make);
@@ -92,6 +91,7 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
             if (minPrice) query.append("min_price", minPrice);
             if (maxPrice) query.append("max_price", maxPrice);
             if (usage && usage !== "all") query.append("usage", usage);
+            if (isLoadMore && nextCursor) query.append("cursor", nextCursor);
 
 
             const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/listings/all/?${query.toString()}`, {
@@ -102,41 +102,31 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
             setTotalCount(data.count);
 
             // ✅ Append if page > 1
-            if (currentPage === 1) {
-                setVehicles(data.results);
-            } else {
+            if (isLoadMore) {
                 setVehicles((prev) => [...prev, ...data.results]);
+            } else {
+                setVehicles(data.results);
             }
 
-            
+            setNextCursor(data.next);
         } finally{
-            if(isLoadMore){
-                setLoadingMore(false);
-            } else {
-                setLoading(false);
-            }
+            if (isLoadMore) setLoadingMore(false);
+            else setLoading(false);
         }
     };
 
     useEffect(() => {
-        setPage(1);
-        fetchVehicles(1);
+        setNextCursor(null);
+        fetchVehicles(false);
     }, [vehicle_type, make, model, yom, usage, minPrice, maxPrice]);
 
-    useEffect(() => {
-        setPage(1);
-    }, [make, model, yom, usage, minPrice, maxPrice, vehicle_type]);
 
     const totalPages = Math.ceil(totalCount / 20);
 
 
-    const handleLoadMore = async() => {
-        if(page<totalPages){
-            const nextPage = page + 1;
-            setPage(nextPage);
-            fetchVehicles(nextPage, true)
-        }
-    }
+    const handleLoadMore = () => {
+        if (nextCursor) fetchVehicles(true);
+    };
 
     return (
         <section className="min-h-screen py-4">
@@ -214,9 +204,11 @@ const VehicleList = ({ vehicle_type }: VehicleListProps) => {
             ) : (
                 <>
                     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                        {vehicles?.map((vehicle: VehicleModel) => (
+
+                        {vehicles?.map((vehicle: VehicleListModel) => (
                             <VehicleCard key={vehicle?.listing_id} vehicle={vehicle} />
                         ))}
+
                         <div className="flex flex-col items-center justify-center bg-orange-400 shadow rounded-2xl p-6 space-y-6 min-h-[300px]">
                             <h1 className="text-white text-2xl lg:text-3xl font-semibold text-center">
                                 Didn’t Find Your Dream {vehicle_type}?

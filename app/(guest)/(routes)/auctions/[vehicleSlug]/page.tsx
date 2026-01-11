@@ -1,18 +1,18 @@
 import React, { Suspense } from 'react';
-import VehiclePageClient from './pageClient';
-import { fetchVehicle } from '@/lib/api';
+import { fetchAuctionVehicle, fetchVehicle } from '@/lib/api';
 import { Metadata } from "next";
 import LoadingModal from '@/components/modals/loading_modal';
+import AuctionPageClient from './pageClient';
 
-type VehicleIdPageProps = {
+type AuctionSlugPageProps = {
     params: any;
 }
 
-export async function generateMetadata({ params }: VehicleIdPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: AuctionSlugPageProps): Promise<Metadata> {
     const resolvedParams = await params;
-    const vehicleData = await fetchVehicle(resolvedParams.vehicleId);
+    const vehicleData = await fetchAuctionVehicle(resolvedParams.vehicleSlug);
 
-    console.log(vehicleData);
+    // console.log(vehicleData);
 
     const year = vehicleData.year_of_make || "";
     const make = vehicleData.vehicle_make || "Car";
@@ -58,16 +58,18 @@ export async function generateMetadata({ params }: VehicleIdPageProps): Promise<
 }
 
 
-export default async function VehicleIdPage({ params }: VehicleIdPageProps) {
+export default async function AuctionSlugPage({ params }: AuctionSlugPageProps) {
     const resolvedParams = await params;
 
-    const vehicleData = await fetchVehicle(`${resolvedParams.vehicleId}`);
+    const vehicleData = await fetchAuctionVehicle(`${resolvedParams.vehicleSlug}`);
+
+    console.log(vehicleData);
 
     return (
         <Suspense fallback={<LoadingModal />}>
-            <VehiclePageClient
+            <AuctionPageClient
                 vehicleData={vehicleData}
-                
+
             />
         </Suspense>
     );

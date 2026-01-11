@@ -69,7 +69,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-foreground flex md:flex-row flex-col max-md:text-center justify-evenly items-center">
-        <p className="text-white flex flex-row max-md:flex-col space-y-3"><span>&copy; 2025 <span className="font-bold px-1">KENAUTOS HUB</span></span> All Rights Reserved</p>
+        <p className="text-white flex flex-row max-md:flex-col space-y-3"><span>&copy; 2026 <span className="font-bold px-1">KENAUTOS HUB</span></span> All Rights Reserved</p>
         <div className="flex items-center justify-center">
           <p className="text-white">Powered by <a href="https://adflex.co.ke" target="_blank" rel="noopener noreferrer" className="font-extrabold text-orange-400 me-6">Adflex Solutions</a></p>
           

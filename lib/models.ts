@@ -9,6 +9,20 @@ export interface Dealer {
 }
 
 
+export interface VehicleListModel {
+    listing_id: string;
+    vehicle_make: string; 
+    vehicle_model: string; 
+    year_of_make: string; 
+    fuel: string;
+    transmission: string; 
+    engine_capacity: string; 
+    price: string; 
+    thumbnail: string;
+    display_type: string;
+    slug: string;
+}
+
 export interface VehicleModel {
     listing_id: string;
     vehicle_type: string;
@@ -31,15 +45,18 @@ export interface VehicleModel {
     price_dropped?: boolean;
     registration_number?: string; 
     images: any;
-    dealer: any;
+    seller: any;
     status: any;
     expires_at: string;
     slug: string;
     clicks: number;
     location?: string;
     display_type?: string;
-    auctions: any;
+    auction: any;
 }
+
+
+
 
 
 

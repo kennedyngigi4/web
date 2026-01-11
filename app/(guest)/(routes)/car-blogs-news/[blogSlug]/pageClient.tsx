@@ -20,9 +20,9 @@ const PageClient = ({ blog }: BlogProps) => {
     return (
         <section className="py-8 min-h-screen w-full">
             <article className="prose prose-slate max-w-none">
-                <div className="md:w-[70%] mx-auto">
+                <div className="md:w-[98%] mx-auto">
                     {/* --- Blog Image --- */}
-                    <div className="relative w-full h-[400px] rounded-lg overflow-hidden shadow-sm">
+                    <div className="relative w-full h-[600px] rounded-lg overflow-hidden shadow-sm">
                         <Image
                             src={blog.image || "/placeholder.png"}
                             alt={blog.title}

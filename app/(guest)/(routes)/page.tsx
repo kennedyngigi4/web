@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import ApiServices from '@/lib/apiservice';
-import { BlogModel, VehicleModel } from '@/lib/models';
+import { BlogModel, VehicleListModel, VehicleModel } from '@/lib/models';
 import VehicleCard from '../_components/vehicle_card';
 import LoadingModal from '@/components/modals/loading_modal';
 import Link from 'next/link';
@@ -12,9 +12,9 @@ import BlogCard from '../_components/blog-card';
 import VehicleAuctionCard from '../_components/vehicle_auction_card';
 
 const IndexPage = () => {
-  const [ luxuries, setLuxuries] = useState<VehicleModel[]>([]);
-  const [ cars, setCars] = useState<VehicleModel[]>([]);
-  const [ auctions, setAuctions] = useState<VehicleModel[]>([]);
+  const [ luxuries, setLuxuries] = useState<VehicleListModel[]>([]);
+  const [ cars, setCars] = useState<VehicleListModel[]>([]);
+  const [auctions, setAuctions] = useState<VehicleListModel[]>([]);
   const [ blogs, setBlogs] = useState<BlogModel[]>([]);
   const [ loading, setLoading ] = useState(false);
 
@@ -28,6 +28,8 @@ const IndexPage = () => {
         setCars(data.cars || []);
         setAuctions(data.auctions || []);
         setBlogs(data.blogs || []);
+
+        console.log(data);
       } catch(e){
         console.error('Error fetching vehicles:', e);
       } finally {
@@ -90,7 +92,7 @@ const IndexPage = () => {
             <section>
               <h1 className="text-orange-500 text-xl font-bold pb-3" title="Luxury and Premium Cars in Kenya">Luxury & Premium Cars</h1>
               <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6">
-                {luxuries.map((vehicle: VehicleModel) => (
+                {luxuries.map((vehicle: VehicleListModel) => (
                   <div key={vehicle.listing_id} className="mb-8">
                     <VehicleCard vehicle={vehicle} />
                   </div>
@@ -116,7 +118,7 @@ const IndexPage = () => {
             <section>
               <h1 className="text-orange-500 text-xl font-bold pb-3">Latest Cars</h1>
               <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 mb-4">
-                {cars.map((vehicle: VehicleModel) => (
+                {cars.map((vehicle: VehicleListModel) => (
                   <div key={vehicle.listing_id} className="">
                     <VehicleCard vehicle={vehicle} />
                   </div>
@@ -141,7 +143,7 @@ const IndexPage = () => {
             <section>
               <h1 className="text-orange-500 text-lg font-bold pb-3">Car Auctions in Kenya</h1>
               <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 mb-4">
-                {auctions.map((vehicle: VehicleModel) => (
+                {auctions.map((vehicle: VehicleListModel) => (
                   <div key={vehicle.listing_id} className="">
                     <VehicleAuctionCard vehicle={vehicle} />
                   </div>
