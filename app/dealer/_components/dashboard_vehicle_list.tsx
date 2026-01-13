@@ -5,15 +5,15 @@ import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
 import DeleteModal from '@/components/modals/delete_modal';
-import { VehicleModel } from '@/lib/models';
 import DealerApiService from '@/lib/dealer_apiservice';
 import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { DealerVehicleModel } from '@/lib/dealer_models';
 
 
 interface DashboardVehicleListProps {
-    vehicle: VehicleModel;
+    vehicle: DealerVehicleModel;
 }
 
 const DashboardVehicleList = ({ vehicle } : DashboardVehicleListProps) => {
@@ -45,8 +45,8 @@ const DashboardVehicleList = ({ vehicle } : DashboardVehicleListProps) => {
     <section className="grid grid-cols-1 lg:grid-cols-12 lg:gap-9 lg:space-y-4 bg-white p-3 mb-2">
         <div className="lg:col-span-2">
             <div className="w-full lg:h-30 h-45 relative overflow-hidden rounded">
-                {vehicle.images.length > 0 ? (
-                    <Image src={`${process.env.NEXT_PUBLIC_IMGURL}${vehicle.images[0].image}`} alt={`${vehicle.year_of_make} ${vehicle.make} ${vehicle.model}`} fill className="object-cover" sizes="(max-width: 640px) 100vw, 400px" />
+                {vehicle?.thumbnail ? (
+                    <Image src={`${vehicle?.thumbnail}`} alt={`${vehicle.year_of_make} ${vehicle.vehicle_make} ${vehicle.vehicle_model}`} fill className="object-cover" sizes="(max-width: 640px) 100vw, 400px" />
                 ) : (
                     <div className="flex flex-col justify-center items-center w-full h-full">
                         <p className="text-red-500">No Image</p>
@@ -58,7 +58,7 @@ const DashboardVehicleList = ({ vehicle } : DashboardVehicleListProps) => {
         </div>
         <div className="lg:col-span-5">
             <Link href="">
-                <h1 className="text-orange-500 font-semibold">{vehicle?.year_of_make} {vehicle?.make} {vehicle?.model}</h1>
+                <h1 className="text-orange-500 font-semibold">{vehicle?.year_of_make} {vehicle?.vehicle_make} {vehicle?.vehicle_model}</h1>
                 {vehicle?.price_dropped 
                     ? (
                         <>
@@ -98,7 +98,7 @@ const DashboardVehicleList = ({ vehicle } : DashboardVehicleListProps) => {
                     
                     <DeleteModal 
                         title={`Delete`} 
-                        product={`${vehicle.year_of_make} ${vehicle.make} ${vehicle.model}`}
+                        product={`${vehicle.year_of_make} ${vehicle.vehicle_make} ${vehicle.vehicle_model}`}
                         description='Are you sure you want to delete this vehicle listing? This action cannot be undone.' 
                         onConfirm={handleDelete}
                       ><Button size="sm" variant="outline" className='border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer'>Delete</Button></DeleteModal>

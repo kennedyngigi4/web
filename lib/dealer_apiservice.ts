@@ -37,22 +37,21 @@ const DealerApiService = {
 
 
     patch: async function(url: string, accessToken: string, formData: any): Promise<any>{
-        return new Promise((resolve, reject) => {
-            fetch(`${process.env.NEXT_PUBLIC_APIURL}/${url}`, {
-                method: "PATCH",
-                headers: {
-                    'Authorization': `Token ${accessToken}`,
-                },
-                body: formData
-            })
-            .then(response => response)
-            .then((res) => {
-                resolve(res);
-            })
-            .catch((error) => {
-                reject(error);
-            })
+        
+        const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/${url}`, {
+            method: "PATCH",
+            headers: {
+                'Authorization': `Token ${accessToken}`,
+            },
+            body: formData
         });
+        const data = await res.json();
+            
+        if(!res.ok){
+            return { "success": false, "message": "An error occured " }
+        }
+
+        return data
     },
 
 

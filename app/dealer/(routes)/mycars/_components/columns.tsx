@@ -3,7 +3,7 @@
 import DeleteModal from "@/components/modals/delete_modal";
 import { Button } from "@/components/ui/button";
 import DealerApiService from "@/lib/dealer_apiservice";
-import { VehicleModel } from "@/lib/models";
+import { VehicleListModel } from "@/lib/models";
 import { ColumnDef } from "@tanstack/react-table"
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -12,19 +12,19 @@ import { toast } from "sonner";
 
 
 
-export const columns: ColumnDef<VehicleModel>[] = [
+export const columns: ColumnDef<VehicleListModel>[] = [
     {
         
         header: "Vehicle Details",
         cell: ({row}) => {
-            const imageOne = row?.original?.images[0]?.image;
-            const images = row?.original.images;
+            const thumbnail = row?.original?.thumbnail;
             const slug = row?.original?.slug;
 
             return (
                 <div className="w-full rounded-lg h-35 relative overflow-hidden">
-                    {images.length > 0 ? ( 
-                        <Image src={`${process.env.NEXT_PUBLIC_IMGURL}${imageOne}`} alt="Vehicle" fill className="object-cover" />
+                    
+                    {thumbnail ? ( 
+                        <Image src={`${thumbnail}`} alt="Vehicle" fill className="object-cover" />
                     ) : (
                         <div className="flex flex-col justify-center items-center w-full h-full">
                             <p className="text-red-500">No Image</p>
@@ -40,7 +40,7 @@ export const columns: ColumnDef<VehicleModel>[] = [
         accessorKey: "model",
         header: "",
         cell: ({ row }) => {
-            const vehicle = `${row?.original?.year_of_make} ${row?.original?.make} ${row?.original?.model}`;
+            const vehicle = `${row?.original?.year_of_make} ${row?.original?.vehicle_make } ${row?.original?.vehicle_model }`;
             const formattedPrice = parseInt(row?.original?.price).toLocaleString();
             const priceDropped = row?.original?.price_dropped;
             const newPrice = parseInt(row?.original?.price_drop).toLocaleString();

@@ -7,6 +7,7 @@ import DealerApiService from '@/lib/dealer_apiservice';
 import DashboardVehicleList from '../_components/dashboard_vehicle_list';
 import { VehicleModel } from '@/lib/models';
 import TopServiceCards from '../_components/top_service_cards';
+import { DealerVehicleModel } from '@/lib/dealer_models';
 
 
 
@@ -45,7 +46,7 @@ const Dealer = () => {
               <div className="py-3">
                 <h1 className="font-semibold text-slate-500">Your Latest Vehicles</h1>
               </div>
-              {vehicles.slice(0,4).map((vehicle: VehicleModel) => (
+              {vehicles.slice(0,4).map((vehicle: DealerVehicleModel) => (
                 <div key={vehicle?.listing_id}>
                   <DashboardVehicleList vehicle={vehicle} />
                 </div>

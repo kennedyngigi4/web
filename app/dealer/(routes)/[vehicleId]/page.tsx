@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useParams, useRouter } from 'next/navigation';
-import { VehicleModel } from '@/lib/models';
+import {  DealerVehicleModel } from "@/lib/dealer_models";
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -34,8 +34,8 @@ const formSchema = z.object({
     drive: z.string(),
     engine_capacity: z.string(),
     price: z.string({ required_error: "Price is required" }),
-    tradein: z.boolean().optional(),
-    financing: z.boolean().optional(),
+    tradein: z.string().optional(),
+    financing: z.string().optional(),
     usage: z.string({ required_error: "Usage is required" }),
     description: z.string({ required_error: "Description is required" })
 })
@@ -45,7 +45,7 @@ const VehicleDetailsPage = () => {
     const {data:session} = useSession();
     const router = useRouter();
 
-    const [ vehicleData, setVehicleData] = useState<VehicleModel | any>({});
+    const [vehicleData, setVehicleData] = useState<DealerVehicleModel | any>({});
     const [ newImages, setNewImages ] = useState<File[]>([]);
     const [ newPreviewUrls, setNewPreviewUrls] = useState<string[]>([]);
     const [ makes, setMakes ] = useState([]);
@@ -82,8 +82,8 @@ const VehicleDetailsPage = () => {
             drive: "",
             mileage: "",
             engine_capacity: "",
-            tradein: false,
-            financing: false,
+            tradein: "false",
+            financing: "false",
             usage: "",
             description: ""
         }
@@ -91,12 +91,47 @@ const VehicleDetailsPage = () => {
 
     const { isValid, isSubmitting } = form.formState;
 
-
     useEffect(() => {
-        if(vehicleData){
-            form.reset(vehicleData);
+        console.log("vehicleData.vehicle_make =", vehicleData?.vehicle_make);
+        if (!vehicleData?.vehicle_make) return;
+
+        async function preloadForm() {
+            // Load makes
+            const makesRes = await fetch(
+                `${process.env.NEXT_PUBLIC_APIURL}/listings/makes/${vehicleData.vehicle_type}`
+            );
+            const makesData = await makesRes.json();
+            setMakes(makesData);
+
+            // Load models for selected make ID
+            const modelsRes = await fetch(
+                `${process.env.NEXT_PUBLIC_APIURL}/listings/models/${vehicleData.vehicle_make}`
+            );
+            const modelsData = await modelsRes.json();
+            setModels(modelsData);
+
+            // Reset form AFTER options exist
+            form.reset({
+                vehicle_make: String(vehicleData.vehicle_make),
+                vehicle_model: String(vehicleData.vehicle_model),
+                year_of_make: String(vehicleData.year_of_make),
+                transmission: vehicleData.transmission,
+                fuel: vehicleData.fuel,
+                drive: vehicleData.drive,
+                engine_capacity: String(vehicleData.engine_capacity),
+                mileage: String(vehicleData.mileage),
+                price: String(vehicleData.price),
+                tradein: vehicleData.tradein,
+                financing: vehicleData.financing,
+                usage: vehicleData.usage,
+                description: vehicleData.description,
+            });
         }
-    },[vehicleData, form]);
+
+        preloadForm();
+    }, [vehicleData]);
+
+
     
 
     useEffect(() => {
@@ -114,7 +149,6 @@ const VehicleDetailsPage = () => {
 
 
     const handleRelatedModels = async (value: string) => {
-        // Get related models to the make user has selected
         const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/listings/models/${value}`)
         const models = await res.json();
         setModels(models);
@@ -123,10 +157,11 @@ const VehicleDetailsPage = () => {
     
 
     const onSubmit = async(values: z.infer<typeof formSchema>) => {
-        if (!session?.accessToken) {
-            throw new Error("You must be logged in");
-        }
+        if (!session?.accessToken) return;
 
+
+        console.log(values.vehicle_make);
+        console.log(values.vehicle_model);
         // Updates data on the vehicle
         const formData = new FormData();
         formData.append("vehicle_make", values.vehicle_make);
@@ -140,10 +175,16 @@ const VehicleDetailsPage = () => {
         formData.append("usage", values.usage);
         formData.append("mileage", values.mileage);
         formData.append("description", values.description);
-        // formData.append("vehicle_type", selectedVehicle);
+        
 
-        const res = await DealerApiService.patch(`dealers/vehicle/${vehicleData.listing_id}`, session?.accessToken, formData);
-        console.log(res.data);
+        const res = await DealerApiService.patch(`dealers/vehicle/${vehicleData.slug}/`, session?.accessToken, formData);
+        if(res.success){
+            toast.success(res.message);
+            router.refresh();
+        } else {
+            toast.success(res.message);
+            router.refresh();
+        }
     }
 
 
@@ -221,7 +262,7 @@ const VehicleDetailsPage = () => {
 
         const formData = new FormData();
         formData.append("availability", value)
-        const res = await DealerApiService.patch(`dealers/vehicle/${vehicleData.slug}`, session?.accessToken, formData);
+        const res = await DealerApiService.patch(`dealers/vehicle/${vehicleData.slug}/`, session?.accessToken, formData);
         if(res.ok){
             toast.success("Vehicle updated", { position: "top-center"})
             window.location.reload();
@@ -250,7 +291,7 @@ const VehicleDetailsPage = () => {
 
 
     const carURL = encodeURIComponent(`https://kenautos.co.ke/${params?.make}/${params?.model}/${params?.vehicleId}`)
-    const carText = encodeURIComponent(`Check out this ${vehicleData?.year_of_make} ${vehicleData?.make} ${vehicleData?.model} for sale on Kenautos Hub`)
+    const carText = encodeURIComponent(`Check out this ${vehicleData?.year_of_make} ${vehicleData?.vehicle_make} ${vehicleData?.vehicle_model} for sale on Kenautos Hub`)
 
 
     return (
@@ -264,7 +305,7 @@ const VehicleDetailsPage = () => {
                             </Button>
                         </Link>
                         <div className="flex flex-col pt-5">
-                            <h2 className="font-bold text-2xl">{vehicleData?.year_of_make} {vehicleData?.make} {vehicleData?.model}</h2>
+                            <h2 className="font-bold text-2xl">{vehicleData?.year_of_make} {vehicleData?.vehicle_make_name} {vehicleData?.vehicle_model_name}</h2>
                             <p></p>
                         </div>
                     </div>
@@ -297,7 +338,7 @@ const VehicleDetailsPage = () => {
                         
                         <DeleteModal
                             title={`Delete`}
-                            product={`${vehicleData?.year_of_make} ${vehicleData.make} ${vehicleData.model}`}
+                            product={`${vehicleData?.year_of_make} ${vehicleData.vehicle_make_name} ${vehicleData.vehicle_model_name}`}
                             description='Are you sure you want to delete this vehicle listing? This action cannot be undone.'
                             onConfirm={handleDelete}
                         >
@@ -320,7 +361,7 @@ const VehicleDetailsPage = () => {
                                                 <FormItem>
                                                     <FormLabel>Make</FormLabel>
                                                     <FormControl>
-                                                        <Select onValueChange={(value) => { field.onChange(value); handleRelatedModels(value); }} defaultValue="" value={String(field.value)}>
+                                                        <Select onValueChange={(value) => { field.onChange(value); handleRelatedModels(value); }} value={String(field.value)}>
                                                             <SelectTrigger className='w-full'>
                                                                 <SelectValue placeholder="Choose make" />
                                                             </SelectTrigger>
@@ -346,7 +387,7 @@ const VehicleDetailsPage = () => {
                                                     <FormControl>
                                                         <Select onValueChange={field.onChange} defaultValue="" value={field.value}>
                                                             <SelectTrigger className='w-full'>
-                                                                <SelectValue placeholder="Choose make" />
+                                                                <SelectValue placeholder="Choose make first" />
                                                             </SelectTrigger>
                                                             <SelectContent>
                                                                 {models.map((opt: any) => (
@@ -627,14 +668,14 @@ const VehicleDetailsPage = () => {
                             ))}  
 
                             {vehicleData?.images?.map((img: any) => (
-                                <div key={img.image_id} className="relative">
+                                <div key={img} className="relative">
                                     <ConfirmModal onConfirm={() => handleImgDelete(img.image_id)}>
                                         <div className="absolute bottom-1 right-1 bg-red-500 text-white rounded-full p-1">
                                             <Trash2 className="w-4 h-4 text-white" />
                                         </div>
                                         
                                     </ConfirmModal>
-                                    <Image src={img?.image} alt="Kenautos Hub, Kenyas leading car Marketplace" width={300} height={300} />
+                                    <Image src={img} alt="Kenautos Hub, Kenyas leading car Marketplace" width={300} height={300} />
                                 </div>
                             ))}
 
