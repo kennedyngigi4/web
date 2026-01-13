@@ -28,9 +28,7 @@ const DashboardVehicleList = ({ vehicle } : DashboardVehicleListProps) => {
 
     const handleDelete = async() => {
 
-        if(!session?.accessToken){
-            throw new Error("You must be logged in.");
-        }
+        if(!session?.accessToken) return;
 
         const res = await DealerApiService.delete(`dealers/vehicle_delete/${vehicle.slug}`, session?.accessToken);
         if(res.success){
