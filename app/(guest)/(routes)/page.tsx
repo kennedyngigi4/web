@@ -18,27 +18,27 @@ const IndexPage = () => {
   const [ blogs, setBlogs] = useState<BlogModel[]>([]);
   const [ loading, setLoading ] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try{
-        setLoading(true);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try{
+  //       setLoading(true);
 
-        const data = await ApiServices.get("listings/home_view/");
-        setLuxuries(data.luxuries || []);
-        setCars(data.cars || []);
-        setAuctions(data.auctions || []);
-        setBlogs(data.blogs || []);
+  //       // const data = await ApiServices.get("listings/home_view/");
+  //       // setLuxuries(data.luxuries || []);
+  //       // setCars(data.cars || []);
+  //       // setAuctions(data.auctions || []);
+  //       // setBlogs(data.blogs || []);
 
-        console.log(data);
-      } catch(e){
-        console.error('Error fetching vehicles:', e);
-      } finally {
-        setLoading(false);
-      }
+  //       console.log(data);
+  //     } catch(e){
+  //       console.error('Error fetching vehicles:', e);
+  //     } finally {
+  //       setLoading(false);
+  //     }
       
-    }
-    fetchData();
-  }, []);
+  //   }
+  //   fetchData();
+  // }, []);
 
 
   return (

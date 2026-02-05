@@ -24,6 +24,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             "clientSecret": "",
         }),
 
+
         Credentials({
             credentials: {
                 email: {},
@@ -60,7 +61,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     callbacks: {
         async jwt({ token, user, account }) {
             if (account && user) {
-                if(!user?.access || !user!.refresh){
+                if(!user?.access || !user?.refresh){
                     throw new Error("Missing tokens for login");
                 }
                 token.accessToken = user?.access;
